@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:46:19 by cdalla-s          #+#    #+#             */
-/*   Updated: 2023/12/20 13:42:53 by cdalla-s         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:30:15 by cdalla-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@ typedef struct s_data
 
 //UTILS
 int	is_space(int c);
+int	ft_strchr_index(const char *s, int c);
 
 //PARSER
 int	parser (char *filename, t_data *game);
 int file_size(char *filename);
 int copy_file(char *filename, int count, char 	***file_copy);
 int	map_save(char **file, int i, t_data *game);
+int	validate_data(t_data *game);
 
 //TEXTURE AND MAP VALUES
 int	north_id(char **file, int i, int j, t_data *game);

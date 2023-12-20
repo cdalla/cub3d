@@ -6,11 +6,9 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 12:46:08 by cdalla-s          #+#    #+#             */
-/*   Updated: 2023/12/20 12:46:42 by cdalla-s         ###   ########.fr       */
+/*   Updated: 2023/12/20 15:47:52 by cdalla-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../cube.h"
 
 /*is_space_and_newline*/
 int	is_space(int c)

@@ -6,20 +6,13 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 11:35:03 by cdalla-s          #+#    #+#             */
-/*   Updated: 2023/12/20 13:52:29 by cdalla-s         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:35:44 by cdalla-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
 void	print_file(char **file);//to remove testing purpose
-
-/*
-open file
-texture paths
-map saving
-check if all data are complete 
-*/
 
 /*
 typedef struct s_id
@@ -52,6 +45,7 @@ void	print_data(t_data *game) //debug purpose - to be removed
 	printf("East: %s\n", game->ea);
 	printf("Floor: %d, %d, %d\n", game->f[0], game->f[1], game->f[2]);
 	printf("Ceiling: %d, %d, %d\n", game->c[0], game->c[1], game->c[2]);
+	printf("Map:\n\n");
 	print_map(game);
 }
 
@@ -100,11 +94,14 @@ int	parser(char *filename, t_data *game)
 	copy_file(filename, file_size(filename), &file_copy);	//check return value
 	if (fill_data(file_copy, game))
 	{
-		print_data(game); //test purpose
-		write(1,"error\n", 6);
+		write(1,"parser error\n", 14);
 		return (1);
 	}
-	//validate datas
+	if (validate_data(game))
+	{
+		write(1,"validation error\n", 18);
+		return (1); //error
+	} 
 	print_data(game); //test purpose
 	return (0);
 }
