@@ -6,14 +6,12 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 11:35:03 by cdalla-s          #+#    #+#             */
-/*   Updated: 2023/12/19 16:41:22 by cdalla-s         ###   ########.fr       */
+/*   Updated: 2023/12/20 13:52:29 by cdalla-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-int	parser (char *filename, t_data *game);
-int	parse_line(char **file, t_data *game);
 void	print_file(char **file);//to remove testing purpose
 
 /*
@@ -23,17 +21,28 @@ map saving
 check if all data are complete 
 */
 
-// typedef struct s_id
-// {
-// 	char	*name;
-// 	int		(*fn)(t_data *, char **)
-// }				t_id;
+/*
+typedef struct s_id
+{
+	char	*name;
+	int		(*fn)(t_data *, char **, int, int)
+}				t_id;
 
-// int identify()
-// {
-// 	const t_id id[6] = {{"NO", &no_id}, {"SO", &so_id}, {"EA", &ea_id}, {"WE", &we_id},
-// 	{"F", &f_id}, {"C", &c_id}};
-// }
+	const t_id id[6] = {{"NO", &no_id}, {"SO", &so_id}, {"EA", &ea_id}, {"WE", &we_id},
+	{"F", &f_id}, {"C", &c_id}};
+*/
+
+void	print_map(t_data *game) // debug purpose - to be removed
+{
+	int i;
+	
+	i = 0;
+	while (game->map[i])
+	{
+		printf("%s\n", game->map[i]);
+		i++;
+	}
+}
 
 void	print_data(t_data *game) //debug purpose - to be removed
 {
@@ -41,17 +50,9 @@ void	print_data(t_data *game) //debug purpose - to be removed
 	printf("South: %s\n", game->so);
 	printf("West: %s\n", game->we);
 	printf("East: %s\n", game->ea);
-	//printf("Floor: %s\n", game->f);
-	//printf("Ceiling: %s\n", game->c);
-}
-
-/*is_space_and_newline*/
-int	is_space(int c)
-{
-	if (c == '\t' || c == '\n' || c == '\v' || c == '\f'
-		|| c == '\r' || c == ' ' || c == '\n')
-		return (1);
-	return (0);
+	printf("Floor: %d, %d, %d\n", game->f[0], game->f[1], game->f[2]);
+	printf("Ceiling: %d, %d, %d\n", game->c[0], game->c[1], game->c[2]);
+	print_map(game);
 }
 
 //return i = 0 for error
@@ -65,12 +66,12 @@ int check_id(char **file, int i, int j, t_data *game)
 		return (west_id(file, i, j + 2, game));
 	else if (!ft_strncmp(&file[i][j], "EA", 2))
 		return (east_id(file, i, j + 2, game));
-	// if (!ft_strncmp(&file[i,j], "F", 1))
-	// 	i = floor_id(file, i, j, game);
-	// if (!ft_strncmp(&file[i,j], "C", 1))
-	// 	i = ceili_id(file, i, j, game);
-	// else
-	// 	i = map_save(file, i, j, game);
+	else if (!ft_strncmp(&file[i][j], "F", 1))
+		return (floor_id(file, i, j + 1, game));
+	else if (!ft_strncmp(&file[i][j], "C", 1))
+		return (ceili_id(file, i, j + 1, game));
+	else
+		return (map_save(file, i, game));
 	return (0);
 }
 
@@ -96,14 +97,14 @@ int	parser(char *filename, t_data *game)
 {
 	char	**file_copy;
 	
-	copy_file(filename, file_size(filename), &file_copy);	
+	copy_file(filename, file_size(filename), &file_copy);	//check return value
 	if (fill_data(file_copy, game))
 	{
 		print_data(game); //test purpose
 		write(1,"error\n", 6);
 		return (1);
 	}
-	//print_data(game); //test purpose
-	//printf("South: %s\n", game->so);
+	//validate datas
+	print_data(game); //test purpose
 	return (0);
 }
