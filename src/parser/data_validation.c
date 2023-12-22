@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:03:00 by cdalla-s          #+#    #+#             */
-/*   Updated: 2023/12/22 13:48:44 by cdalla-s         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:13:19 by cdalla-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,40 +40,26 @@ int	color_valid(t_data *game)
 	return (0);
 }
 
-int	map_border_valid(t_data *game, int len, int lines)
-{
-	int	i;
-
-	i = 0;
-	while (game->map[0][i] && game->map[lines - 1][i])
-	{
-		if (game->map[0][i] != '1' || game->map[lines - 1][i] != '1')
-			return (print_err_msg("parser", "map border not valid"), 1);
-		i++;
-	}
-	i = 0;
-	while (game->map[i])
-	{
-		if (game->map[i][0] != '1' || game->map[i][len - 1] != '1')
-			return (print_err_msg("parser", "map border not valid"), 1);
-		i++;
-	}
-	return (0);
-}
-
 int	map_valid(t_data *game)
 {
 	int	i;
 	int	j;
+	int	player;
 
 	i = 0;
+	player = 0;
 	while (game->map[i])
 	{
 		j = 0;
 		while (game->map[i][j])
 		{
-			if (ft_strchr_index("01NSEW", game->map[i][j]) == -1)
+			if (ft_strchr_index("01NSEW", game->map[i][j]) == -1
+				&& !is_space(game->map[i][j]))
 				return (print_err_msg("parser", "invalid symbol in map"), 1);
+			if (ft_strrchr("NSEW", game->map[i][j]) && !player)
+				player = 1;
+			else if (ft_strrchr("NSEW", game->map[i][j]) && player)
+				return (print_err_msg("parser", "starting pos doubled"), 1);
 			j++;
 		}
 		i++;

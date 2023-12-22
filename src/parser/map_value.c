@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 12:37:23 by cdalla-s          #+#    #+#             */
-/*   Updated: 2023/12/22 13:49:38 by cdalla-s         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:19:26 by cdalla-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	fill_map(t_data *game, int len, int j, int i)
 {
 	while (j < len)
 	{
-		game->map[i][j] = '1';
+		game->map[i][j] = ' ';
 		j++;
 	}
 	return (j);
@@ -50,10 +50,7 @@ int	copy_map(char **file, t_data *game, int len)
 		j = 0;
 		while (file[i][j])
 		{
-			if (is_space(file[i][j]))
-				game->map[i][j] = '1';
-			else
-				game->map[i][j] = file[i][j];
+			game->map[i][j] = file[i][j];
 			j++;
 		}
 		if (j < len)

@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 15:54:57 by cdalla-s          #+#    #+#             */
-/*   Updated: 2023/12/22 13:49:20 by cdalla-s         ###   ########.fr       */
+/*   Updated: 2023/12/22 15:47:36 by cdalla-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	north_id(char **file, int i, int j, t_data *game)
 {
+	if (game->no)
+		return (print_err_msg("parser", "NO doubled"), 0);
 	while (file[i])
 	{
 		if (ft_strlen(file[i]))
@@ -36,6 +38,8 @@ int	north_id(char **file, int i, int j, t_data *game)
 
 int	south_id(char **file, int i, int j, t_data *game)
 {
+	if (game->so)
+		return (print_err_msg("parser", "SO doubled"), 0);
 	while (file[i])
 	{
 		if (ft_strlen(file[i]))
@@ -58,6 +62,8 @@ int	south_id(char **file, int i, int j, t_data *game)
 
 int	west_id(char **file, int i, int j, t_data *game)
 {
+	if (game->we)
+		return (print_err_msg("parser", "WE doubled"), 0);
 	while (file[i])
 	{
 		if (ft_strlen(file[i]))
@@ -80,6 +86,8 @@ int	west_id(char **file, int i, int j, t_data *game)
 
 int	east_id(char **file, int i, int j, t_data *game)
 {
+	if (game->ea)
+		return (print_err_msg("parser", "EA doubled"), 0);
 	while (file[i])
 	{
 		if (ft_strlen(file[i]))

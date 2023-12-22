@@ -2,7 +2,7 @@ NAME = cub3d
 
 CC = gcc
 
-FLAGS = -Wall -Werror -Wextra #-fsanitize=leak
+FLAGS = -Wall -Werror -Wextra -fsanitize=address
 
 HEADER := src/libft/libft.h
 
@@ -17,6 +17,7 @@ SRC =	src/main.c\
 		src/parser/texture_path_value.c\
 		src/parser/color_value.c\
 		src/parser/data_validation.c\
+		src/parser/map_borders_validation.c\
 		src/parser/map_value.c\
 		src/GNL/get_next_line.c\
 		src/GNL/get_next_line_utils.c\
