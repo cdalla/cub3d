@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:45:00 by cdalla-s          #+#    #+#             */
-/*   Updated: 2023/12/22 12:51:40 by cdalla-s         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:07:21 by cdalla-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int	file_size(char *filename)
 		s = get_next_line(fd);
 		if (s)
 			count++;
-		else
-			return (print_err_msg("parser", "GNL error"), 1);
 		free(s);
 	}
 	close(fd);
@@ -68,8 +66,6 @@ int	copy_lines(int fd, int count, char ***file_copy)
 			free(s);
 			i++;
 		}
-		else
-			return (print_err_msg("parser", "GNL error"), 1);
 	}
 	(*file_copy)[i] = 0;
 	return (0);
