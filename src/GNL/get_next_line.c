@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   get_next_line.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdalla-s <cdalla-s@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/03/19 11:05:38 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2022/03/19 11:06:31 by cdalla-s      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/19 11:05:38 by cdalla-s          #+#    #+#             */
+/*   Updated: 2023/12/22 13:56:15 by cdalla-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,31 +73,31 @@ int	ft_readjoin(char **buff, int fd)
 	return (1);
 }
 
-void	ft_newline(char **buff, int fd, char **new_line)
+void	ft_newline(char **b, int fd, char **new_line)
 {
 	int	check;
 
 	while (!*new_line)
 	{
-		if (ft_strchr_index(buff[fd], '\n') != -1)
+		if (ft_strchr_index(b[fd], '\n') != -1)
 		{
-			*new_line = ft_substr(buff[fd], 0, ft_strchr_index(buff[fd], '\n'));
+			*new_line = ft_substr(b[fd], 0, ft_strchr_index(b[fd], '\n'));
 			if (!*new_line)
-				*new_line = free_all(buff, fd, *new_line);
-			if (ft_resizebuff(buff, fd, ft_strlen(*new_line) + 1) == 0)
-				*new_line = free_all(buff, fd, *new_line);
+				*new_line = free_all(b, fd, *new_line);
+			if (ft_resizebuff(b, fd, ft_strlen(*new_line) + 1) == 0)
+				*new_line = free_all(b, fd, *new_line);
 		}
 		else
 		{
-			check = ft_readjoin(buff, fd);
+			check = ft_readjoin(b, fd);
 			if (check == 0)
 			{
-				*new_line = ft_strdup(buff[fd]);
-				free(buff[fd]);
-				buff[fd] = 0;
+				*new_line = ft_strdup(b[fd]);
+				free(b[fd]);
+				b[fd] = 0;
 			}
 			else if (check == -1)
-				*new_line = free_all(buff, fd, *new_line);
+				*new_line = free_all(b, fd, *new_line);
 		}
 	}
 }

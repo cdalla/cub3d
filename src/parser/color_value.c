@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 15:58:38 by cdalla-s          #+#    #+#             */
-/*   Updated: 2023/12/20 16:16:03 by cdalla-s         ###   ########.fr       */
+/*   Updated: 2023/12/22 13:50:44 by cdalla-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 int	color_value(char *s, int a[3])
 {
 	int		len;
-	int 	i = 0;
+	int		i;
 	char	*value;
-	
+
+	i = 0;
 	while (*s)
 	{
 		len = 0;
@@ -27,19 +28,20 @@ int	color_value(char *s, int a[3])
 			len++;
 		value = ft_substr(s, 0, len);
 		if (!value)
-			return (1); //malloc error
+			return (print_err_msg("parser", "malloc error"), 1); //malloc error
 		a[i] = ft_atoi(value);
 		s = s + len;
 		while (*s && *s != ',')
 			s++;
 		i++;
-		s++;
+		if (*s && *s == ',')
+			s++;
 		free(value);
 	}
 	return (0);
 }
 
-int floor_id(char **file, int i, int j, t_data *game)
+int	floor_id(char **file, int i, int j, t_data *game)
 {
 	while (file[i])
 	{
@@ -50,7 +52,7 @@ int floor_id(char **file, int i, int j, t_data *game)
 			if (file[i][j]) //if something in string
 			{
 				if (color_value(&file[i][j], game->f))
-					return (0); //0 index is error
+					return (0);
 				return (++i);
 			}
 		}
@@ -60,7 +62,7 @@ int floor_id(char **file, int i, int j, t_data *game)
 	return (i); //if arrives here it is the last line so file[i] == 0
 }
 
-int ceili_id(char **file, int i, int j, t_data *game)
+int	ceili_id(char **file, int i, int j, t_data *game)
 {
 	while (file[i])
 	{

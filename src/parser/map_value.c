@@ -6,13 +6,13 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 12:37:23 by cdalla-s          #+#    #+#             */
-/*   Updated: 2023/12/20 16:31:43 by cdalla-s         ###   ########.fr       */
+/*   Updated: 2023/12/22 13:49:38 by cdalla-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-int map_border_valid(t_data *game, int len, int lines);
+int	map_border_valid(t_data *game, int len, int lines);
 
 int	fill_map(t_data *game, int len, int j, int i)
 {
@@ -46,7 +46,7 @@ int	copy_map(char **file, t_data *game, int len)
 	{
 		game->map[i] = (char *)malloc((len + 1) * sizeof(char));
 		if (!game->map[i])
-			return (0); //malloc error
+			return (print_err_msg("parser", "malloc error"), 0);
 		j = 0;
 		while (file[i][j])
 		{
@@ -58,7 +58,7 @@ int	copy_map(char **file, t_data *game, int len)
 		}
 		if (j < len)
 			j = j + fill_map(game, len, j, i);
-		game->map[i][j] = '\0';
+		game->map[i][len] = '\0';
 		i++;
 	}
 	game->map[i] = 0;
@@ -73,9 +73,9 @@ int	map_save(char **file, int i, t_data *game)
 	map_size(&file[i], &len, &lines);
 	game->map = (char **)malloc((lines + 1) * sizeof(char *));
 	if (!game->map)
-		return (0); //malloc error
+		return (print_err_msg("parser", "malloc error"), 0);
 	i = i + copy_map(&file[i], game, len);
 	if (map_border_valid(game, len, lines))
-		return (0); //map borders not valid error msg
+		return (0);
 	return (i);
 }

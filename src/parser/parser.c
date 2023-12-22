@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 11:35:03 by cdalla-s          #+#    #+#             */
-/*   Updated: 2023/12/20 16:35:44 by cdalla-s         ###   ########.fr       */
+/*   Updated: 2023/12/22 13:54:28 by cdalla-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ typedef struct s_id
 	const t_id id[6] = {{"NO", &no_id}, {"SO", &so_id}, {"EA", &ea_id}, {"WE", &we_id},
 	{"F", &f_id}, {"C", &c_id}};
 */
-
-void	print_map(t_data *game) // debug purpose - to be removed
+// debug purpose - to be removed
+void	print_map(t_data *game)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (game->map[i])
 	{
@@ -37,7 +37,8 @@ void	print_map(t_data *game) // debug purpose - to be removed
 	}
 }
 
-void	print_data(t_data *game) //debug purpose - to be removed
+//debug purpose - to be removed
+void	print_data(t_data *game)
 {
 	printf("North: %s\n", game->no);
 	printf("South: %s\n", game->so);
@@ -50,7 +51,7 @@ void	print_data(t_data *game) //debug purpose - to be removed
 }
 
 //return i = 0 for error
-int check_id(char **file, int i, int j, t_data *game)
+int	check_id(char **file, int i, int j, t_data *game)
 {
 	if (!ft_strncmp(&file[i][j], "NO", 2))
 		return (north_id(file, i, j + 2, game));
@@ -71,18 +72,20 @@ int check_id(char **file, int i, int j, t_data *game)
 
 int	fill_data(char **file, t_data *game)
 {
-	int i = 0;
-	
-	while(file[i])
+	int	i;
+	int	j;
+
+	i = 0;
+	while (file[i])
 	{
 		while (!ft_strlen(file[i])) //skip empty lines
 			i++;
-		int j = 0;
+		j = 0;
 		while (is_space(file[i][j])) //skip spaces
 			j++;
-		i = check_id(file, i , j, game);
+		i = check_id(file, i, j, game);
 		if (!i)
-			return (1);//error in check_id
+			return (1);
 	}
 	return (0);
 }
@@ -90,18 +93,14 @@ int	fill_data(char **file, t_data *game)
 int	parser(char *filename, t_data *game)
 {
 	char	**file_copy;
-	
-	copy_file(filename, file_size(filename), &file_copy);	//check return value
-	if (fill_data(file_copy, game))
+
+	if (copy_file(filename, file_size(filename), &file_copy)
+		|| fill_data(file_copy, game) || validate_data(game))
 	{
-		write(1,"parser error\n", 14);
+		free_file_copy(file_copy);
 		return (1);
 	}
-	if (validate_data(game))
-	{
-		write(1,"validation error\n", 18);
-		return (1); //error
-	} 
 	print_data(game); //test purpose
+	free_file_copy(file_copy);
 	return (0);
 }
