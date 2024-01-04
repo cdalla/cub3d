@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 11:35:03 by cdalla-s          #+#    #+#             */
-/*   Updated: 2023/12/22 13:54:28 by cdalla-s         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/15 11:35:03 by cdalla-s      #+#    #+#                 */
+/*   Updated: 2024/01/03 22:37:21 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	parser(char *filename, t_data *game)
 		free_file_copy(file_copy);
 		return (1);
 	}
-	print_data(game); //test purpose
+	//print_data(game); //test purpose
 	free_file_copy(file_copy);
 	return (0);
 }

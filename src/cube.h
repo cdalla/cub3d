@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cube.h                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/19 13:46:19 by cdalla-s          #+#    #+#             */
-/*   Updated: 2023/12/22 14:01:57 by cdalla-s         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   cube.h                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/19 13:46:19 by cdalla-s      #+#    #+#                 */
+/*   Updated: 2024/01/04 17:04:56 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,25 @@
 # include <stdlib.h>
 # include <string.h>
 # include <errno.h>
+# include <stdbool.h>
+# include <MLX42/MLX42.h>
+
+# define WIDTH 1000
+# define HEIGHT 1000
+
 
 typedef struct s_data
 {
-	char	*filename;
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-	int		f[3];
-	int		c[3];
-	char	**map;
+	char		*filename;
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	int			f[3];
+	int			c[3];
+	char		**map;
+	uint32_t	f_color;
+	uint32_t	c_color;
 }				t_data;
 
 //UTILS
@@ -53,5 +61,10 @@ int		west_id(char **file, int i, int j, t_data *game);
 int		east_id(char **file, int i, int j, t_data *game);
 int		floor_id(char **file, int i, int j, t_data *game);
 int		ceili_id(char **file, int i, int j, t_data *game);
+
+//RENDER
+void	ft_hook(void *param);
+void	ft_box(void *param);
+void	background(void *param);
 
 #endif
