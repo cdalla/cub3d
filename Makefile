@@ -4,7 +4,16 @@ CC = gcc
 
 FLAGS = -Wall -Werror -Wextra -fsanitize=address
 
-HEADER := src/libft/libft.h
+MLXDIR := mlx
+
+MLX := $(MLXDIR)/build/libmlx42.a
+
+MLXFLAGS := -ldl -lglfw -pthread -lm
+
+HEADER := src/libft/libft.h\
+		  src/include/cube.h\
+
+INC := -I src/include -I src/libft -I $(MLXDIR)/include
 
 LIBFT := src/libft/libft.a
 
@@ -21,24 +30,28 @@ SRC =	src/main.c\
 		src/parser/map_value.c\
 		src/GNL/get_next_line.c\
 		src/GNL/get_next_line_utils.c\
-		
 
 OBJ =	$(SRC:src/%.c=obj/%.o)
+
 		
 all: $(NAME)
 	
-$(NAME): $(LIBFT) $(OBJ) $(HEADER)
-	@$(CC) $(FLAGS) $(OBJ) -o $@ $<
+$(NAME): $(OBJ) $(LIBFT) $(MLX)
+	@$(CC) $(FLAGS) $(MLXFLAGS) $^ -o $@ 
 
 obj/%.o: src/%.c $(HEADER)
 	@mkdir -p $(dir $@)
-	$(CC) -c $(FLAGS) $< -o $@
+	$(CC) $(FLAGS) $(INC) -o $@ -c $<
+
+$(MLX):
+	@cmake $(MLXDIR) -B $(MLXDIR)/build && make -C $(MLXDIR)/build -j4
 
 $(LIBFT):
 	make -C ./src/libft
 
 clean:
 	make clean -C ./src/libft/
+	rm -rf $(MLXDIR)/build
 	rm -r obj
 
 fclean: clean

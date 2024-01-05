@@ -6,11 +6,11 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:38:59 by cdalla-s          #+#    #+#             */
-/*   Updated: 2023/12/22 13:58:47 by cdalla-s         ###   ########.fr       */
+/*   Updated: 2024/01/05 13:39:51 by cdalla-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube.h"
+#include "cube.h"
 
 void	print_err_msg(char *game_part, char *err_msg)
 {

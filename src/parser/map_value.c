@@ -6,11 +6,11 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 12:37:23 by cdalla-s          #+#    #+#             */
-/*   Updated: 2023/12/22 16:19:26 by cdalla-s         ###   ########.fr       */
+/*   Updated: 2024/01/05 13:40:18 by cdalla-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube.h"
+#include "cube.h"
 
 int	map_border_valid(t_data *game, int len, int lines);
 

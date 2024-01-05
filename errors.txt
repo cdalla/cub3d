@@ -1,0 +1,57 @@
+-map value:
+
+copy map -> return 0 for error
+	malloc error
+map_save -> return 0 for error
+	malloc error
+	map border not valid
+
+
+-color_value:
+
+color_value -> return  1 for error 
+	malloc error
+floor id -> return 0 for error
+	color_value error ->malloc error
+ceili_id -> return 0 for error
+	color_value error ->malloc error
+	
+
+
+-texture_path_value:
+
+*_id -> return 0 for error
+	malloc error
+	
+	
+-copy_file:
+
+copy_file -> return 1 for error
+	malloc error
+	open error
+file_size -> return 1 for error
+	malloc error
+
+
+-data_validation:
+
+map_valid -> return  1 for error
+	invalid symbol in map
+map_border valid-> return 1 for error
+	map borders are open
+color_valid -> return  1 for error
+	color value not valid
+texture_valid -> return 1 for error
+	data empty
+	file not exist or not permission
+	
+	
+-parser :
+
+check_id -> return 0 for error
+	error in functions to get data
+fill_data -> return 1 for error
+	error in check_id
+parser -> return 1 for error
+	parser error
+	validation 
