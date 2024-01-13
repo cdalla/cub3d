@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   map_borders_validation.c                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/22 15:16:21 by cdalla-s          #+#    #+#             */
-/*   Updated: 2024/01/05 13:40:15 by cdalla-s         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   map_borders_validation.c                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/22 15:16:21 by cdalla-s      #+#    #+#                 */
+/*   Updated: 2024/01/13 12:14:51 by cdalla-s      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	adjacent_valid(t_data *game, int i, int j)
 {
-	if (is_space(game->map[i - 1][j - 1])
-		|| is_space(game->map[i - 1][j])
-		|| is_space(game->map[i - 1][j + 1])
-		|| is_space(game->map[i][j - 1])
-		|| is_space(game->map[i][j + 1])
-		|| is_space(game->map[i + 1][j - 1])
-		|| is_space(game->map[i + 1][j])
-		|| is_space(game->map[i][j + 1]))
+	if (is_space(game->map.map[i - 1][j - 1])
+		|| is_space(game->map.map[i - 1][j])
+		|| is_space(game->map.map[i - 1][j + 1])
+		|| is_space(game->map.map[i][j - 1])
+		|| is_space(game->map.map[i][j + 1])
+		|| is_space(game->map.map[i + 1][j - 1])
+		|| is_space(game->map.map[i + 1][j])
+		|| is_space(game->map.map[i][j + 1]))
 		return (1);
 	return (0);
 }
@@ -32,12 +32,12 @@ int	map_border_valid(t_data *game, int len, int lines)
 	int	j;
 
 	i = 0;
-	while (game->map[i])
+	while (game->map.map[i])
 	{
 		j = 0;
-		while (game->map[i][j])
+		while (game->map.map[i][j])
 		{
-			if ((game->map[i][j]) == '0')
+			if ((game->map.map[i][j]) == '0')
 			{
 				if (i == 0 || i == lines)
 					return (print_err_msg("parser", "map border not valid"), 1);

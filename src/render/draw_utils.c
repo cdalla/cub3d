@@ -1,43 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   free_data.c                                        :+:    :+:            */
+/*   draw_utils.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/12/22 11:56:33 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/13 12:15:21 by cdalla-s      ########   odam.nl         */
+/*   Created: 2024/01/13 12:12:31 by cdalla-s      #+#    #+#                 */
+/*   Updated: 2024/01/13 12:13:53 by cdalla-s      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+#include "../../mlx/include/MLX42/MLX42.h"
 
-void	free_file_copy(char **file)
+void resetBg(mlx_image_t *img)
 {
-	int	i;
-
-	i = 0;
-	if (file)
+	for (int i = 0; i < wsize; i++)
 	{
-		while (file[i])
+		for (int j = 0; j < wsize; j++)
 		{
-			if (file[i])
-				free(file[i]);
-			i++;
+			mlx_put_pixel(img, i, j, 0x00000000);
 		}
-		free(file);
 	}
 }
 
-void	free_data(t_data *game)
+int fixAngle(int a)
 {
-	if (game->no)
-		free(game->no);
-	if (game->so)
-		free(game->so);
-	if (game->we)
-		free(game->we);
-	if (game->ea)
-		free(game->ea);
-	free_file_copy(game->map.map);
+	if (a > 359)
+		a -= 360;
+	if (a < 0)
+		a += 360;
+	return (a);
+}
+
+float degreesToRadiant(int a)
+{
+	return (a * PI / 180);
 }

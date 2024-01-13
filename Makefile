@@ -30,6 +30,13 @@ SRC =	src/main.c\
 		src/parser/map_value.c\
 		src/GNL/get_next_line.c\
 		src/GNL/get_next_line_utils.c\
+		src/render/render.c\
+		src/render/render3D.c\
+		src/render/render2D.c\
+		src/render/hook.c\
+		src/render/draw2D.c\
+		src/render/draw3D.c\
+		src/render/draw_utils.c\
 
 OBJ =	$(SRC:src/%.c=obj/%.o)
 

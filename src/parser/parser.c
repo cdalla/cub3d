@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 11:35:03 by cdalla-s          #+#    #+#             */
-/*   Updated: 2024/01/05 13:40:25 by cdalla-s         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/15 11:35:03 by cdalla-s      #+#    #+#                 */
+/*   Updated: 2024/01/13 12:14:57 by cdalla-s      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ void	print_map(t_data *game)
 	int	i;
 
 	i = 0;
-	while (game->map[i])
+	while (game->map.map[i])
 	{
-		printf("%s\n", game->map[i]);
+		for (int j = 0; j < game->map.xsize; j++)
+			printf("%c", game->map.map[i][j]);
+		printf("\n");
 		i++;
 	}
 }

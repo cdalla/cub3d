@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   map_value.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdalla-s <cdalla-s@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/20 12:37:23 by cdalla-s          #+#    #+#             */
-/*   Updated: 2024/01/05 13:40:18 by cdalla-s         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   map_value.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/20 12:37:23 by cdalla-s      #+#    #+#                 */
+/*   Updated: 2024/01/13 12:14:54 by cdalla-s      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	fill_map(t_data *game, int len, int j, int i)
 {
 	while (j < len)
 	{
-		game->map[i][j] = ' ';
+		game->map.map[i][j] = ' ';
 		j++;
 	}
 	return (j);
@@ -40,39 +40,39 @@ int	copy_map(char **file, t_data *game, int len)
 {
 	int	i;
 	int	j;
-
+	char **map;
+	
+	map = game->map.map;
 	i = 0;
 	while (file[i])
 	{
-		game->map[i] = (char *)malloc((len + 1) * sizeof(char));
-		if (!game->map[i])
+		map[i] = (char *)malloc((len + 1) * sizeof(char));
+		if (!map[i])
 			return (print_err_msg("parser", "malloc error"), 0);
 		j = 0;
 		while (file[i][j])
 		{
-			game->map[i][j] = file[i][j];
+			map[i][j] = file[i][j];
 			j++;
 		}
 		if (j < len)
 			j = j + fill_map(game, len, j, i);
-		game->map[i][len] = '\0';
+		map[i][len] = '\0';
 		i++;
 	}
-	game->map[i] = 0;
+	map[i] = 0;
 	return (i);
 }
 
 int	map_save(char **file, int i, t_data *game)
 {
-	int	len;
-	int	lines;
 
-	map_size(&file[i], &len, &lines);
-	game->map = (char **)malloc((lines + 1) * sizeof(char *));
-	if (!game->map)
+	map_size(&file[i], &game->map.xsize, &game->map.ysize);
+	game->map.map = (char **)malloc((game->map.xsize + 1) * sizeof(char *));
+	if (!game->map.map)
 		return (print_err_msg("parser", "malloc error"), 0);
-	i = i + copy_map(&file[i], game, len);
-	if (map_border_valid(game, len, lines))
+	i = i + copy_map(&file[i], game, game->map.xsize);
+	if (map_border_valid(game, game->map.xsize, game->map.ysize))
 		return (0);
 	return (i);
 }
