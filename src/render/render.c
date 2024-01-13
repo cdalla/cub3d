@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 11:05:29 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/13 12:23:33 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/01/13 12:35:35 by cdalla-s      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void error(void)
 
 void init_player(t_data *game)
 {
-	int x = 1; //delete this and get initial pos from parser
-	int y = 2;
+	int x = 2; //delete this and get initial pos from parser
+	int y = 4;
 	game->map.sq_xsize = wsize / game->map.xsize;
 	game->map.sq_ysize = wsize / game->map.ysize;
 	if (game->map.xsize > game->map.ysize)
