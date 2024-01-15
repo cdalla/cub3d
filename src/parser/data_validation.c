@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/20 15:03:00 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/13 12:14:44 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/01/15 13:34:08 by cdalla-s      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,21 @@ int	color_valid(t_data *game)
 	return (0);
 }
 
+void	save_pl_data(t_data *game, int *player, int i, int j)
+{
+	*player = 1;
+	game->pl.x = j;
+	game->pl.y = i;
+	if (game->map.map[i][j] == 'N')
+		game->pl.ang = 90;
+	else if (game->map.map[i][j] == 'S')
+		game->pl.ang = 270;
+	else if (game->map.map[i][j] == 'E')
+		game->pl.ang = 0;
+	else if (game->map.map[i][j] == 'W')
+		game->pl.ang = 180;
+}
+
 int	map_valid(t_data *game)
 {
 	int	i;
@@ -57,7 +72,7 @@ int	map_valid(t_data *game)
 				&& !is_space(game->map.map[i][j]))
 				return (print_err_msg("parser", "invalid symbol in map"), 1);
 			if (ft_strrchr("NSEW", game->map.map[i][j]) && !player)
-				player = 1;
+				save_pl_data(game, &player, i, j);
 			else if (ft_strrchr("NSEW", game->map.map[i][j]) && player)
 				return (print_err_msg("parser", "starting pos doubled"), 1);
 			j++;

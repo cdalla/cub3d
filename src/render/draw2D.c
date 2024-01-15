@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 11:07:21 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/13 12:15:06 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/01/15 13:38:17 by cdalla-s      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void drawBg2D(t_data *game)
 		int	x = 0;
 		for (int j = 0; j < game->map.xsize; j++)
 		{
-			if (game->map.map[i][j] == '0')
-				draw_sq2D(game, x, y, 0xFFFFFFFF);
-			else
+			if (game->map.map[i][j] == '1' || game->map.map[i][j] == ' ')
 				draw_sq2D(game, x, y, 0x00FF00FF);
+			else
+				draw_sq2D(game, x, y, 0xFFFFFFFF);
 			x += game->map.sq_size;
 		}
 		y += game->map.sq_size;

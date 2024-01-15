@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/13 12:12:11 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/13 12:14:04 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/01/15 15:45:32 by cdalla-s      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ double calcWallDist3D(t_data *game, float ang, double *dirx, double *diry)
 			side = 1;
 		}
 		//remove 'N' check
-		if (game->map.map[mapYpos][mapXpos] == '1' || game->map.map[mapYpos][mapXpos] == 'N')
+		if (game->map.map[mapYpos][mapXpos] == '1')
 			hit = 1;
 	}
 	
@@ -103,12 +103,12 @@ void render3D(t_data *game)
 	double	diry;
 	
 	ang = game->pl.ang;
-	x = wsize + 1;
+	x = 0;
 	resetBg(game->img);
-	for (int i = -30; i <= 30; i += 1)
+	for (int i = (FOV / 2); i >= -(FOV); i --)
 	{
-		wallDist = calcWallDist3D(game, (int)ang + i, &dirx, &diry);
-		drawRay3D(game, wallDist, x, (int)ang + i);
-		x -= wsize / 60;
+		wallDist = calcWallDist3D(game, (int)(ang + i), &dirx, &diry);
+		drawRay3D(game, wallDist, x, (int)(ang + i));
+		x += (int)(wsize / FOV);
 	}
 }

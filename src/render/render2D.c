@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/13 12:12:07 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/13 12:14:00 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/01/15 13:36:58 by cdalla-s      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ double calcWallDist2D(t_data *game, float ang, double *dirx, double *diry)
 			side = 1;
 		}
 		//remove 'N' check
-		if (game->map.map[mapYpos][mapXpos] == '1' || game->map.map[mapYpos][mapXpos] == 'N')
+		if (game->map.map[mapYpos][mapXpos] == '1')
 			hit = 1;
 	}
 	

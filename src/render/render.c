@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 11:05:29 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/13 12:35:35 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/01/15 15:16:29 by cdalla-s      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ void error(void)
 
 void init_player(t_data *game)
 {
-	int x = 2; //delete this and get initial pos from parser
-	int y = 4;
+	int x = game->pl.x; //delete this and get initial pos from parser
+	int y = game->pl.y;
 	game->map.sq_xsize = wsize / game->map.xsize;
 	game->map.sq_ysize = wsize / game->map.ysize;
 	if (game->map.xsize > game->map.ysize)
 		game->map.sq_size = game->map.sq_xsize;
 	else
 		game->map.sq_size = game->map.sq_ysize;
-	game->pl.x = x * game->map.sq_xsize; //+ ((wsize / mapX) / 2);	//player X
-	game->pl.y = y * game->map.sq_ysize; //+ ((wsize / mapY) / 2);	//player Y
-	game->pl.x2D = x * game->map.sq_size;
-	game->pl.y2D = y * game->map.sq_size; 
+	game->pl.x = x * game->map.sq_xsize + (game->map.sq_xsize / 2);	//player X
+	game->pl.y = y * game->map.sq_ysize + (game->map.sq_ysize / 2);	//player Y
+	game->pl.x2D = x * game->map.sq_size + (game->map.sq_size / 2);
+	game->pl.y2D = y * game->map.sq_size + (game->map.sq_size / 2);
 	game->pl.ang = 20;	//player direction
 	game->pl.pdirx = cos(degreesToRadiant(game->pl.ang)); //player direction ray X
 	game->pl.pdiry = -sin(degreesToRadiant(game->pl.ang)); //player direction ray Y
@@ -53,10 +53,10 @@ void init_player(t_data *game)
 
 void render(t_data *game)
 {
-	printf("map sizex = %d, sizey = %d\n", game->map.xsize, game->map.ysize);
 	init_player(game);
 	mlx_loop_hook(game->mlx, ft_hook, game);
 	mlx_loop(game->mlx);
+	printf("map sizex = %d, sizey = %d\n", game->map.xsize, game->map.ysize);
 	mlx_delete_image(game->mlx, game->img);
 	mlx_delete_image(game->mlx, game->minimap);
 	mlx_terminate(game->mlx);
