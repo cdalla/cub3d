@@ -6,11 +6,13 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/20 15:03:00 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/15 13:34:08 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/01/24 13:50:25 by cdalla-s      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+
+void	save_pl_data(t_data *game, int *player, int i, int j);
 
 int	texture_valid(t_data *game)
 {
@@ -38,21 +40,6 @@ int	color_valid(t_data *game)
 		|| game->c[2] > 255 || game->c[2] < 0)
 		return (print_err_msg("parser", "color value not valid"), 1);
 	return (0);
-}
-
-void	save_pl_data(t_data *game, int *player, int i, int j)
-{
-	*player = 1;
-	game->pl.x = j;
-	game->pl.y = i;
-	if (game->map.map[i][j] == 'N')
-		game->pl.ang = 90;
-	else if (game->map.map[i][j] == 'S')
-		game->pl.ang = 270;
-	else if (game->map.map[i][j] == 'E')
-		game->pl.ang = 0;
-	else if (game->map.map[i][j] == 'W')
-		game->pl.ang = 180;
 }
 
 int	map_valid(t_data *game)

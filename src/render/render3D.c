@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/13 12:12:11 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/15 15:45:32 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/01/25 13:44:46 by cdalla-s      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,101 +14,42 @@
 #include "../../mlx/include/MLX42/MLX42.h"
 #include <math.h>
 
-void drawRay3D(t_data *game, double wallDist, int x, int ang);
+void	draw_ray3d(t_data *game, t_ray *ray, int x);
 
-double calcWallDist3D(t_data *game, float ang, double *dirx, double *diry)
+//value of camerax between -1 (left side of screen) and 1 (right side),
+//0 is the player direction 
+void	calc_wall_dist3d(t_data *game, int x, t_ray *ray)
 {
-	float angle = fixAngle(ang);
-	//printf("i = %f\n", angle);
-	*dirx = cos(degreesToRadiant(angle));
-	*diry = -sin(degreesToRadiant(angle));
-	
-	int mapXpos = (int)(game->pl.x / game->map.sq_xsize);
-	int mapYpos = (int)(game->pl.y / game->map.sq_ysize);
-	
-	//printf("initial mapx = %d, mapy = %d,\n", mapXpos, mapYpos); 
-	//printf("initial dirx = %f, diry = %f\n", *dirx, *diry);
-	
-	double sideDistX;
-	double sideDistY;
-	
-	double deltaDistX = sqrt(1 + (*diry / *dirx) * (*diry / *dirx));
-	double deltaDistY = sqrt(1 + (*dirx / *diry) * (*dirx / *diry));
-	// double deltaDistX = fabs(1 / dirx);
-	// double deltaDistY = fabs(1 / diry);
-	//printf("delta distX = %f\n", deltaDistX);
-	//printf("delta distY = %f\n", deltaDistY);
-	double wallDist;
-	
-	int stepX;
-	int	stepY;
-	
-	int	hit = 0;
-	int	side;
-	
-	if (*dirx < 0)
-	{
-		stepX = -1;
-		sideDistX = (game->pl.x / game->map.sq_xsize - mapXpos) * deltaDistX;
-	}
-	else
-	{
-		stepX = 1;
-		sideDistX = (mapXpos + 1.0 - game->pl.x / game->map.sq_xsize) * deltaDistX;
-	}
-	if (*diry < 0)
-	{
-		stepY = -1;
-		sideDistY = (game->pl.y / game->map.sq_ysize - mapYpos) *deltaDistY;
-	}
-	else
-	{
-		stepY = 1;
-		sideDistY = (mapYpos + 1.0 - game->pl.y / game->map.sq_ysize) * deltaDistY;
-	}
-	//DDA
-	while (hit == 0)
-	{
-		if (sideDistX < sideDistY)
-		{
-			sideDistX += deltaDistX;
-			mapXpos += stepX;
-			side = 0;
-		}
-		else
-		{
-			sideDistY += deltaDistY;
-			mapYpos += stepY;
-			side = 1;
-		}
-		//remove 'N' check
-		if (game->map.map[mapYpos][mapXpos] == '1')
-			hit = 1;
-	}
-	
-	if (side == 0)
-		wallDist = sideDistX - deltaDistX;
-	else
-		wallDist = sideDistY - deltaDistY;
+	double	camerax;
+	int		mapx;
+	int		mapy;
 
-	return (wallDist);
+	mapy = (int)(game->pl.y / game->map.sq_ysize);
+	mapx = (int)(game->pl.x / game->map.sq_xsize);
+	camerax = 2 * x / (double)(WSIZE) - 1;
+	ray->dirx = game->pl.pdirx + game->pl.planex * camerax;
+	ray->diry = game->pl.pdiry + game->pl.planey * camerax;
+	calc_delta_dist(ray);
+	calc_init_side_distx_3d(game, ray, mapx);
+	calc_init_side_disty_3d(game, ray, mapy);
+	dda(game, ray, &mapx, &mapy);
+	if (ray->side == 0 || ray->side == 1)
+		ray->wall_dist = (ray->side_distx - ray->delta_x);
+	else
+		ray->wall_dist = (ray->side_disty - ray->delta_y);
 }
 
-void render3D(t_data *game)
+void	render3d(t_data *game)
 {
-	float	ang;
-	int		x; //witdh of a ray on the screen
-	double	wallDist;
-	double	dirx;
-	double	diry;
-	
-	ang = game->pl.ang;
+	t_ray	ray;
+	int		x;
+
+	reset_bg(game->img);
 	x = 0;
-	resetBg(game->img);
-	for (int i = (FOV / 2); i >= -(FOV); i --)
+	while (x < WSIZE)
 	{
-		wallDist = calcWallDist3D(game, (int)(ang + i), &dirx, &diry);
-		drawRay3D(game, wallDist, x, (int)(ang + i));
-		x += (int)(wsize / FOV);
+		calc_wall_dist3d(game, x, &ray);
+		draw_ray3d(game, &ray, x);
+		x++;
 	}
 }

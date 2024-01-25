@@ -26,14 +26,18 @@ SRC =	src/main.c\
 		src/parser/texture_path_value.c\
 		src/parser/color_value.c\
 		src/parser/data_validation.c\
+		src/parser/save_pl_data.c\
 		src/parser/map_borders_validation.c\
 		src/parser/map_value.c\
 		src/GNL/get_next_line.c\
 		src/GNL/get_next_line_utils.c\
+		src/hooks/player_move.c\
+		src/hooks/player_rotate.c\
+		src/hooks/hook.c\
 		src/render/render.c\
 		src/render/render3D.c\
 		src/render/render2D.c\
-		src/render/hook.c\
+		src/render/dda.c\
 		src/render/draw2D.c\
 		src/render/draw3D.c\
 		src/render/draw_utils.c\

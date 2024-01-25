@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/13 12:12:07 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/15 13:36:58 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/01/25 13:44:25 by cdalla-s      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,98 +14,75 @@
 #include "../../mlx/include/MLX42/MLX42.h"
 #include <math.h>
 
-void drawRay2D(t_data *game, double wallDist, double dirx, double diry);
+void	draw_ray2d(t_data *game, double wallDist, double dirx, double diry);
 
-double calcWallDist2D(t_data *game, float ang, double *dirx, double *diry)
+//calculate initial distance from pl position to first x
+void	calc_init_side_distx_2d(t_data *game, t_ray *ray, int mapx)
 {
-	float angle = fixAngle(ang);
-	//printf("i = %f\n", angle);
-	*dirx = cos(degreesToRadiant(angle));
-	*diry = -sin(degreesToRadiant(angle));
-	
-	int mapXpos = (int)(game->pl.x2D / game->map.sq_size);
-	int mapYpos = (int)(game->pl.y2D / game->map.sq_size);
-	
-	//printf("initial mapx = %d, mapy = %d,\n", mapXpos, mapYpos); 
-	//printf("initial dirx = %f, diry = %f\n", *dirx, *diry);
-	
-	double sideDistX;
-	double sideDistY;
-	
-	double deltaDistX = sqrt(1 + (*diry / *dirx) * (*diry / *dirx));
-	double deltaDistY = sqrt(1 + (*dirx / *diry) * (*dirx / *diry));
-	// double deltaDistX = fabs(1 / dirx);
-	// double deltaDistY = fabs(1 / diry);
-	//printf("delta distX = %f\n", deltaDistX);
-	//printf("delta distY = %f\n", deltaDistY);
-	double wallDist;
-	
-	int stepX;
-	int	stepY;
-	
-	int	hit = 0;
-	int	side;
-	
-	if (*dirx < 0)
+	if (ray->dirx < 0)
 	{
-		stepX = -1;
-		sideDistX = (game->pl.x2D / game->map.sq_size - mapXpos) * deltaDistX;
+		ray->step_x = -1;
+		ray->side_distx = (game->pl.x2d / game->map.sq_size - mapx)
+			* ray->delta_x;
 	}
 	else
 	{
-		stepX = 1;
-		sideDistX = (mapXpos + 1.0 - game->pl.x2D / game->map.sq_size) * deltaDistX;
+		ray->step_x = 1;
+		ray->side_distx = (mapx + 1.0 - game->pl.x2d / game->map.sq_size)
+			* ray->delta_x;
 	}
-	if (*diry < 0)
-	{
-		stepY = -1;
-		sideDistY = (game->pl.y2D / game->map.sq_size - mapYpos) *deltaDistY;
-	}
-	else
-	{
-		stepY = 1;
-		sideDistY = (mapYpos + 1.0 - game->pl.y2D / game->map.sq_size) * deltaDistY;
-	}
-	//DDA
-	while (hit == 0)
-	{
-		if (sideDistX < sideDistY)
-		{
-			sideDistX += deltaDistX;
-			mapXpos += stepX;
-			side = 0;
-		}
-		else
-		{
-			sideDistY += deltaDistY;
-			mapYpos += stepY;
-			side = 1;
-		}
-		//remove 'N' check
-		if (game->map.map[mapYpos][mapXpos] == '1')
-			hit = 1;
-	}
-	
-	if (side == 0)
-		wallDist = sideDistX - deltaDistX;
-	else
-		wallDist = sideDistY - deltaDistY;
-		
-	return (wallDist);
 }
 
-void render2D(t_data *game)
+//calculate initial distance from pl posiiton to first y
+void	calc_init_side_disty_2d(t_data *game, t_ray *ray, int mapy)
 {
-	float ang = game->pl.ang;
-	double wallDist;
-	double	dirx;
-	double	diry;
-	resetBg(game->minimap);
-	drawBg2D(game);
-	drawPl2D(game);
-	for (int i = -30; i <= 30; i += 1)
+	if (ray->diry < 0)
 	{
-		wallDist = calcWallDist2D(game, (int)ang + i, &dirx, &diry);
-		drawRay2D(game, wallDist, dirx, diry);
+		ray->step_y = -1;
+		ray->side_disty = (game->pl.y2d / game->map.sq_size - mapy)
+			* ray->delta_y;
+	}
+	else
+	{
+		ray->step_y = 1;
+		ray->side_disty = (mapy + 1.0 - game->pl.y2d / game->map.sq_size)
+			* ray->delta_y;
+	}
+}
+
+void	calc_wall_dist2d(t_data *game, int x, t_ray *ray)
+{
+	double	camerax;
+	int		mapx;
+	int		mapy;
+
+	mapy = (int)(game->pl.y2d / game->map.sq_size);
+	mapx = (int)(game->pl.x2d / game->map.sq_size);
+	camerax = 2 * x / (double)(WSIZE) - 1;
+	ray->dirx = game->pl.pdirx + game->pl.planex * camerax;
+	ray->diry = game->pl.pdiry + game->pl.planey * camerax;
+	calc_delta_dist(ray);
+	calc_init_side_distx_2d(game, ray, mapx);
+	calc_init_side_disty_2d(game, ray, mapy);
+	dda(game, ray, &mapx, &mapy);
+	if (ray->side == 0 || ray->side == 1)
+		ray->wall_dist = (ray->side_distx - ray->delta_x);
+	else
+		ray->wall_dist = (ray->side_disty - ray->delta_y);
+}
+
+void	render2d(t_data *game)
+{
+	t_ray	ray;
+	int		x;
+
+	reset_bg(game->minimap);
+	draw_bg2d(game);
+	draw_pl2d(game);
+	while (x < WSIZE)
+	{
+		calc_wall_dist2d(game, x, &ray);
+		draw_ray2d(game, ray.wall_dist, ray.dirx, ray.diry);
+		x++;
 	}
 }

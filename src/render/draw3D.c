@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/13 12:12:17 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/15 15:47:48 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/01/25 13:42:36 by cdalla-s      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,41 @@
 #include "../../mlx/include/MLX42/MLX42.h"
 #include <math.h>
 
-void drawRay3D(t_data *game, double wallDist, int x, int ang)
+uint32_t	get_color(int side)
 {
-	int fixedAng;
+	if (side == WEST)
+		return (0x00FF00FF);
+	else if (side == EAST)
+		return (0xFF0000FF);
+	else if (side == NORTH)
+		return (0x0000FFFF);
+	else
+		return (0xFFFF00FF);
+}
 
-	fixedAng = game->pl.ang - ang;
-	wallDist = wallDist * cos(degreesToRadiant(fixAngle(fixedAng)));
-	int h = wsize;
-	int lineHeight = (int)(wsize / wallDist);
-	
-    //calculate lowest and highest pixel to fill in current stripe
-    int drawStart = -lineHeight / 2 + wsize / 2;
-    if(drawStart < 0)
-		drawStart = 0;
-    int drawEnd = lineHeight / 2 + wsize / 2;
-    if(drawEnd >= h)
-		drawEnd = h - 1;
-	
-	for (int i = 0; i < wsize/FOV; i++)
+//calculate lowest and highest pixel to fill in current vertical line
+//draw the line with color based on cardinals direction
+void	draw_ray3d(t_data *game, t_ray *ray, int x)
+{
+	int	h;
+	int	y;
+	int	line_height;
+	int	line_start;
+	int	line_end;
+
+	h = WSIZE;
+	line_height = (int)(WSIZE / ray->wall_dist);
+	line_start = (-line_height / 2) + (WSIZE / 2);
+	if (line_start < 0)
+		line_start = 0;
+	line_end = line_height / 2 + WSIZE / 2;
+	if (line_end >= h)
+		line_end = h - 1;
+	y = line_start;
+	while (y < line_end)
 	{
-		for (int y = drawStart; y <= drawEnd; y++)
-		{
-			if ((x + i) < wsize)
-				mlx_put_pixel(game->img, x + i, y, 0xFF0000FF);
-		}
+		if ((x) < WSIZE)
+			mlx_put_pixel(game->img, x, y, get_color(ray->side));
+		y++;
 	}
 }

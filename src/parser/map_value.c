@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/20 12:37:23 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/13 12:14:54 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/01/25 13:38:45 by cdalla-s      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	map_size(char **file, int *len, int *lines)
 
 int	copy_map(char **file, t_data *game, int len)
 {
-	int	i;
-	int	j;
-	char **map;
-	
+	int		i;
+	int		j;
+	char	**map;
+
 	map = game->map.map;
 	i = 0;
 	while (file[i])
@@ -66,7 +66,6 @@ int	copy_map(char **file, t_data *game, int len)
 
 int	map_save(char **file, int i, t_data *game)
 {
-
 	map_size(&file[i], &game->map.xsize, &game->map.ysize);
 	game->map.map = (char **)malloc((game->map.xsize + 1) * sizeof(char *));
 	if (!game->map.map)
