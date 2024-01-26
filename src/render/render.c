@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 11:05:29 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/25 13:43:53 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/01/26 20:06:07 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	render(t_data *game)
 {
 	init_player(game);
 	init_mlx(game);
+	load_and_resize_all_textures(game);
 	mlx_loop_hook(game->mlx, ft_hook, game);
 	mlx_loop(game->mlx);
 	printf("map sizex = %d, sizey = %d\n", game->map.xsize, game->map.ysize);

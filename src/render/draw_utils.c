@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/13 12:12:31 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/25 13:50:10 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/01/26 20:40:45 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,12 @@ double	fix_angle(double a)
 float	degrees_to_radiant(double a)
 {
 	return (a * PI / 180);
+}
+
+uint32_t	get_texture_color(int x, int y, mlx_image_t *texture, uint32_t col)
+{
+	if (texture)
+		return (fillbrick(x, y, texture));
+	else
+		return (col);
 }
