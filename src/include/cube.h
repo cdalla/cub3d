@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/19 13:46:19 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/25 13:41:41 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/01/26 20:46:34 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,13 @@ typedef struct s_data
 {
 	char		*filename;
 	char		*no;
+	mlx_image_t	*no_img;
 	char		*so;
+	mlx_image_t	*so_img;
 	char		*we;
+	mlx_image_t	*we_img;
 	char		*ea;
+	mlx_image_t	*ea_img;
 	int			f[3];
 	int			c[3];
 	double		frametime;
@@ -85,42 +89,48 @@ typedef struct s_data
 }				t_data;
 
 //UTILS
-int		is_space(int c);
-int		ft_strchr_index(const char *s, int c);
-void	print_err_msg(char *game_part, char *err_msg);
-void	free_file_copy(char **file);
-void	free_data(t_data *game);
+int			is_space(int c);
+int			ft_strchr_index(const char *s, int c);
+void		print_err_msg(char *game_part, char *err_msg);
+void		free_file_copy(char **file);
+void		free_data(t_data *game);
+
+
+
 
 //PARSER
-int		parser(char *filename, t_data *game);
-int		file_size(char *filename);
-int		copy_file(char *filename, int count, char ***file_copy);
-int		map_save(char **file, int i, t_data *game);
-int		validate_data(t_data *game);
+int			parser(char *filename, t_data *game);
+int			file_size(char *filename);
+int			copy_file(char *filename, int count, char ***file_copy);
+int			map_save(char **file, int i, t_data *game);
+int			validate_data(t_data *game);
 
 //TEXTURE AND MAP VALUES
-int		north_id(char **file, int i, int j, t_data *game);
-int		south_id(char **file, int i, int j, t_data *game);
-int		west_id(char **file, int i, int j, t_data *game);
-int		east_id(char **file, int i, int j, t_data *game);
-int		floor_id(char **file, int i, int j, t_data *game);
-int		ceili_id(char **file, int i, int j, t_data *game);
+int			north_id(char **file, int i, int j, t_data *game);
+int			south_id(char **file, int i, int j, t_data *game);
+int			west_id(char **file, int i, int j, t_data *game);
+int			east_id(char **file, int i, int j, t_data *game);
+int			floor_id(char **file, int i, int j, t_data *game);
+int			ceili_id(char **file, int i, int j, t_data *game);
+void		load_and_resize_all_textures(t_data *game);
+uint32_t	get_texture_color(int x, int y, mlx_image_t *texture, uint32_t col);
+uint32_t	fillbrick(int x, int y, mlx_image_t *texture);
 
 //RENDER UTILS
-double	fix_angle(double a);
-float	degrees_to_radiant(double a);
-void	reset_bg(mlx_image_t *img);
+double		fix_angle(double a);
+float		degrees_to_radiant(double a);
+void		reset_bg(mlx_image_t *img);
 
 //DIGITAL DIFFERENTIAL ANALYSIS
-void	calc_delta_dist(t_ray *ray);
-void	calc_init_side_distx_3d(t_data *game, t_ray *ray, int mapx);
-void	calc_init_side_disty_3d(t_data *game, t_ray *ray, int mapy);
-void	dda(t_data *game, t_ray *ray, int *mapx, int *mapy);
+void		calc_delta_dist(t_ray *ray);
+void		calc_init_side_distx_3d(t_data *game, t_ray *ray, int mapx);
+void		calc_init_side_disty_3d(t_data *game, t_ray *ray, int mapy);
+void		dda(t_data *game, t_ray *ray, int *mapx, int *mapy);
 
 //RENDER DRAW
-void	draw_bg2d(t_data *game);
-void	draw_pl2d(t_data *game);
-void	render3d(t_data *game);
-void	render2d(t_data *game);
+void		draw_bg2d(t_data *game);
+void		draw_pl2d(t_data *game);
+void		render3d(t_data *game);
+void		render2d(t_data *game);
 
 #endif
