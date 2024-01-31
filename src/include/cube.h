@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/19 13:46:19 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/25 13:41:41 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/01/31 15:55:19 by lisa          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define PI 3.14159
 # define FOV 60
-# define WSIZE 1200
+# define WSIZE 600
 # define WEST 0
 # define EAST 1
 # define NORTH 2
@@ -35,7 +35,8 @@ typedef struct s_map
 	int			ysize;
 	double		sq_xsize;
 	double		sq_ysize;
-	double		sq_size;
+	double		sq_mini;
+	double		sq_map;
 	char		**map;
 }				t_map;
 
@@ -57,8 +58,10 @@ typedef struct s_player
 {
 	double	x;	//player X
 	double	y;	//player Y
-	double	x2d;
-	double	y2d;
+	double	x_map;
+	double	y_map;
+	double	x_mini;
+	double	y_mini;
 	float	ang;	//player starting dir
 	double	pdirx; //player direction X
 	double	pdiry; //player direction Y
@@ -76,10 +79,13 @@ typedef struct s_data
 	char		*ea;
 	int			f[3];
 	int			c[3];
+	int			ray;
 	double		frametime;
+	bool		m;
 	t_player	pl;
 	t_map		map;
 	mlx_t		*mlx;
+	mlx_image_t	*mini;
 	mlx_image_t	*img;
 	mlx_image_t	*minimap;
 }				t_data;
@@ -109,12 +115,14 @@ int		ceili_id(char **file, int i, int j, t_data *game);
 //RENDER UTILS
 double	fix_angle(double a);
 float	degrees_to_radiant(double a);
-void	reset_bg(mlx_image_t *img);
+void	reset_bg(mlx_image_t *img, int size);
+void	reset_bg_mini(t_data *game, mlx_image_t *img, int size, uint32_t color);
+bool	in_circle(t_data *game, int x, int y, int ray);
 
 //DIGITAL DIFFERENTIAL ANALYSIS
 void	calc_delta_dist(t_ray *ray);
-void	calc_init_side_distx_3d(t_data *game, t_ray *ray, int mapx);
-void	calc_init_side_disty_3d(t_data *game, t_ray *ray, int mapy);
+void	calc_init_side_distx(t_ray *ray, int mapx, double pl_x);
+void	calc_init_side_disty(t_ray *ray, int mapy, double pl_y);
 void	dda(t_data *game, t_ray *ray, int *mapx, int *mapy);
 
 //RENDER DRAW
