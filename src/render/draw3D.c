@@ -6,13 +6,15 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/13 12:12:17 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/26 20:45:48 by kaltevog      ########   odam.nl         */
+/*   Updated: 2024/02/01 16:14:36 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 #include "../../mlx/include/MLX42/MLX42.h"
 #include <math.h>
+#define texWidth 32
+#define texHeight 32
 
 void	load_and_resize_texture(t_data *game, char **side_path, mlx_image_t **s)
 {
@@ -43,58 +45,69 @@ void	load_and_resize_all_textures(t_data *game)
 	load_and_resize_texture(game, &game->ea, &game->ea_img);
 }
 
-uint32_t	fillbrick(int x, int y, mlx_image_t *texture)
-{
-	int			tex_x;
-	int			tex_y;
-	int			pos;
-	uint32_t	color;
-
-	tex_x = (x % texture->width);
-	tex_y = (y % texture->height);
-	pos = (tex_y * texture->width + tex_x) * 4;
-	color = (texture->pixels[pos] << 24) | \
-		(texture->pixels[pos + 1] << 16) | \
-		(texture->pixels[pos + 2] << 8) | \
-		(texture->pixels[pos + 3]);
-	return (color);
-}
-
-uint32_t	get_color(int side, int x, int y, t_data *game)
+uint32_t	get_color(int side, int tex_x, int tex_y, t_data *game)
 {
 	if (side == WEST)
-		return (get_texture_color(x, y, game->we_img, 0x00FF00FF));
+		return (get_texture_color(tex_x, tex_y, game->we_img));
 	else if (side == EAST)
-		return (get_texture_color(x, y, game->ea_img, 0xFF0000FF));
+		return (get_texture_color(tex_x, tex_y, game->ea_img));
 	else if (side == NORTH)
-		return (get_texture_color(x, y, game->no_img, 0x0000FFFF));
+		return (get_texture_color(tex_x, tex_y, game->no_img));
 	else if (side == SOUTH)
-		return (get_texture_color(x, y, game->so_img, 0xFFFF00FF));
+		return (get_texture_color(tex_x, tex_y, game->so_img));
 	else
 		return (0xFFFFFFFF);
 }
 
-void	draw_ray3d(t_data *game, t_ray *ray, int x)
-{
-	int	h;
-	int	y;
-	int	line_height;
-	int	line_start;
-	int	line_end;
+void draw_ray3d(t_data *game, t_ray *ray, int x) {
+    int h, line_height, draw_start, draw_end, tex_x, y;
+    double wallX;
+    double step;
+    double tex_pos;
+    uint32_t color;
 
-	h = WSIZE;
-	line_height = (int)(WSIZE / ray->wall_dist);
-	line_start = (-line_height / 2) + (WSIZE / 2);
-	if (line_start < 0)
-		line_start = 0;
-	line_end = line_height / 2 + WSIZE / 2;
-	if (line_end >= h)
-		line_end = h - 1;
-	y = line_start;
-	while (y < line_end)
-	{
-		if ((x) < WSIZE)
-			mlx_put_pixel(game->img, x, y, get_color(ray->side, x, y, game));
-		y++;
-	}
+    h = WSIZE;
+    line_height = (int)(h / ray->wall_dist);
+    draw_start = (-line_height / 2) + (h / 2);
+    if (draw_start < 0)
+        draw_start = 0;
+    draw_end = line_height / 2 + (h / 2);
+    if (draw_end >= h)
+        draw_end = h - 1;
+
+    if (ray->side == WEST || ray->side == EAST) {
+        wallX = game->pl.y + ray->wall_dist * ray->diry;
+    } else {
+        wallX = game->pl.x + ray->wall_dist * ray->dirx;
+    }
+    wallX -= floor(wallX);
+
+    tex_x = (int)(wallX * (double)texWidth);
+    if(ray->side == 0 && ray->dirx > 0) tex_x = texWidth - tex_x - 1;
+    if(ray->side == 1 && ray->diry < 0) tex_x = texWidth - tex_x - 1;
+
+    step = 1.0 * texHeight / line_height;
+    tex_pos = (draw_start - h / 2 + line_height / 2) * step;
+    for (y = draw_start; y < draw_end; y++) {
+        int tex_y = (int)tex_pos & (texHeight - 1);
+        tex_pos += step;
+        color = get_color(ray->side, tex_x, tex_y, game);
+        mlx_put_pixel(game->img, x, y, color);
+    }
+}
+
+
+uint32_t	get_texture_color(int tex_x, int tex_y, mlx_image_t *texture)
+{
+	int pos;
+
+	if (!texture)
+		return (0xFFFFFFFF);
+	if (tex_x < 0 || tex_y < 0 || tex_x >= (int)texture->width || tex_y >= (int)texture->height)
+		return (0xFFFFFFFF);
+	pos = (tex_y * texture->width + tex_x) * 4;
+	return (texture->pixels[pos] << 24) | 
+			(texture->pixels[pos + 1] << 16) | 
+			(texture->pixels[pos + 2] << 8) | 
+		(texture->pixels[pos + 3]);
 }

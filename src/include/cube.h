@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/19 13:46:19 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/26 20:46:34 by kaltevog      ########   odam.nl         */
+/*   Updated: 2024/01/31 01:14:25 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ int			east_id(char **file, int i, int j, t_data *game);
 int			floor_id(char **file, int i, int j, t_data *game);
 int			ceili_id(char **file, int i, int j, t_data *game);
 void		load_and_resize_all_textures(t_data *game);
-uint32_t	get_texture_color(int x, int y, mlx_image_t *texture, uint32_t col);
-uint32_t	fillbrick(int x, int y, mlx_image_t *texture);
+uint32_t get_texture_color(int tex_x, int tex_y, mlx_image_t *texture);
+void		draw_background(t_data *game, int line_start, int line_end, int x);
 
 //RENDER UTILS
 double		fix_angle(double a);

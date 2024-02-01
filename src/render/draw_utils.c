@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/13 12:12:31 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/26 20:40:45 by kaltevog      ########   odam.nl         */
+/*   Updated: 2024/01/30 23:38:07 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,35 @@ float	degrees_to_radiant(double a)
 	return (a * PI / 180);
 }
 
-uint32_t	get_texture_color(int x, int y, mlx_image_t *texture, uint32_t col)
+// uint32_t	get_texture_color(int x, int y, mlx_image_t *texture, uint32_t col)
+// {
+// 	if (texture)
+// 		return (fillbrick(x, y, texture));
+// 	else
+// 		return (col);
+// }
+
+void	draw_background(t_data *game, int line_start, int line_end, int x)
 {
-	if (texture)
-		return (fillbrick(x, y, texture));
-	else
-		return (col);
+	uint32_t	ceiling_color;
+	uint32_t	floor_color;
+	int			y;
+
+	y = 0;
+	ceiling_color = (game->c[0] << 24) | (game->c[1] << 16) \
+	| (game->c[2] << 8) | 0xFF;
+	floor_color = (game->f[0] << 24) | (game->f[1] << 16) \
+	| (game->f[2] << 8) | 0xFF;
+
+	while (y < line_start)
+	{
+		mlx_put_pixel(game->img, x, y, ceiling_color);
+		y++;
+	}
+	y = line_end;
+	while (y < WSIZE)
+	{
+		mlx_put_pixel(game->img, x, y, floor_color);
+		y++;
+	}
 }
