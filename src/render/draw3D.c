@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/13 12:12:17 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/01 16:29:14 by kaltevog      ########   odam.nl         */
+/*   Updated: 2024/02/01 16:39:50 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ uint32_t	get_color(int side, int tex_x, int tex_y, t_data *game)
 		return (0xFFFFFFFF);
 }
 
-void draw_ray3d(t_data *game, t_ray *ray, int x) {
+void draw_ray3d(t_data *game, t_ray *ray, int x)
+{
     int h, line_height, draw_start, draw_end, tex_x, y;
     double wallX;
     double step;
@@ -83,13 +84,15 @@ void draw_ray3d(t_data *game, t_ray *ray, int x) {
     wallX -= floor(wallX);
 
     tex_x = (int)(wallX * (double)texWidth);
-    if(ray->side == 0 && ray->dirx > 0) tex_x = texWidth - tex_x - 1;
-    if(ray->side == 1 && ray->diry < 0) tex_x = texWidth - tex_x - 1;
+    if(ray->side == 0 && ray->dirx > 0)
+		tex_x = texWidth - tex_x - 1;
+    if(ray->side == 1 && ray->diry < 0)
+		tex_x = texWidth - tex_x - 1;
 
     step = 1.0 * texHeight / line_height;
     tex_pos = (draw_start - h / 2 + line_height / 2) * step;
     for (y = draw_start; y < draw_end; y++) {
-        int tex_y = (int)tex_pos & (texHeight - 1);
+        int tex_y = (int)tex_pos % texHeight;
         tex_pos += step;
         color = get_color(ray->side, tex_x, tex_y, game);
         mlx_put_pixel(game->img, x, y, color);
