@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/13 12:12:17 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/01 16:14:36 by kaltevog      ########   odam.nl         */
+/*   Updated: 2024/02/01 16:29:14 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void draw_ray3d(t_data *game, t_ray *ray, int x) {
         mlx_put_pixel(game->img, x, y, color);
     }
 }
-
 
 uint32_t	get_texture_color(int tex_x, int tex_y, mlx_image_t *texture)
 {
