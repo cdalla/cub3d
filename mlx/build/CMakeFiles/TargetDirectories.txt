@@ -1,7 +1,0 @@
-/home/kaltevog/Desktop/workingoncub3d/v10 wip/mlx/build/CMakeFiles/mlx42.dir
-/home/kaltevog/Desktop/workingoncub3d/v10 wip/mlx/build/CMakeFiles/edit_cache.dir
-/home/kaltevog/Desktop/workingoncub3d/v10 wip/mlx/build/CMakeFiles/rebuild_cache.dir
-/home/kaltevog/Desktop/workingoncub3d/v10 wip/mlx/build/CMakeFiles/list_install_components.dir
-/home/kaltevog/Desktop/workingoncub3d/v10 wip/mlx/build/CMakeFiles/install.dir
-/home/kaltevog/Desktop/workingoncub3d/v10 wip/mlx/build/CMakeFiles/install/local.dir
-/home/kaltevog/Desktop/workingoncub3d/v10 wip/mlx/build/CMakeFiles/install/strip.dir

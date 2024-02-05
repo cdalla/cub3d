@@ -11,7 +11,7 @@ NO
 
 WE ./wall_white.png
 
-EA ./test.png
+EA ./wall_brick.png
 F 101,     67,33
 
 

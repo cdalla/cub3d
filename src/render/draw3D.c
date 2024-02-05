@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/13 12:12:17 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/01 16:39:50 by kaltevog      ########   odam.nl         */
+/*   Updated: 2024/02/05 14:56:18 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,10 @@ void draw_ray3d(t_data *game, t_ray *ray, int x)
     if (draw_end >= h)
         draw_end = h - 1;
 
-    if (ray->side == WEST || ray->side == EAST) {
-        wallX = game->pl.y + ray->wall_dist * ray->diry;
-    } else {
-        wallX = game->pl.x + ray->wall_dist * ray->dirx;
-    }
+    if (ray->side == WEST || ray->side == EAST)
+        wallX = game->pl.y / game->map.sq_ysize + ray->wall_dist * ray->diry;
+    else 
+        wallX = game->pl.x / game->map.sq_xsize + ray->wall_dist * ray->dirx;
     wallX -= floor(wallX);
 
     tex_x = (int)(wallX * (double)texWidth);
