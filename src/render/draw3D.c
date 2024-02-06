@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/13 12:12:17 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/06 12:16:54 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/06 15:04:41 by lisa          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,29 @@
 #include "../../mlx/include/MLX42/MLX42.h"
 #include <math.h>
 
-void	draw_ray_mini(t_data *game, double wallDist, double dirx, double diry);
+void		draw_ray_mini(t_data *game, double wallDist, double dirx, double diry);
+uint32_t	get_color(int side, int tex_x, int tex_y, t_data *game);
+void		calculate_texture_info(t_data *game, t_ray *ray, t_tex *tex, int line_start);
 
-uint32_t	get_color(int side)
+void	draw_fl_ceil(t_data *game)
 {
-	if (side == WEST)
-		return (0x00FF00FF);
-	else if (side == EAST)
-		return (0xFF0000FF);
-	else if (side == NORTH)
-		return (0x0000FFFF);
-	else
-		return (0xFFFF00FF);
+	int	x;
+	int	y;
+
+	x = 0;
+	while (x < WSIZE)
+	{
+		y = 0;
+		while (y < WSIZE)
+		{
+			if (y < WSIZE / 2)
+				mlx_put_pixel(game->img3d, x, y, 0x0000FFFF);
+			else
+				mlx_put_pixel(game->img3d, x, y, 0x00FFFFFF);
+			y++;
+		}
+		x++;
+	}
 }
 
 void	calculate_height(t_ray *ray, int *line_start, int *line_end)
@@ -43,20 +54,24 @@ void	calculate_height(t_ray *ray, int *line_start, int *line_end)
 		*line_end = h - 1;
 }
 
+
 //calculate lowest and highest pixel to fill in current vertical line
 //draw the line with color based on cardinals direction
 void	draw_ray3d(t_data *game, t_ray *ray, int x)
 {
-	int	y;
-	int	line_start;
-	int	line_end;
+	t_tex	tex;
+	int		line_start;
+	int		line_end;
+	int		y;
 
 	calculate_height(ray, &line_start, &line_end);
+	calculate_texture_info(game, ray, &tex, line_start);
 	y = line_start;
 	while (y < line_end)
 	{
-		mlx_put_pixel(game->img3d, x, y, get_color(ray->side));
+        tex.tex_pos += tex.step;
+		mlx_put_pixel(game->img3d, x, y, get_color(ray->side, tex.tex_x, (int)tex.tex_pos % texHeight, game));
 		y++;
 	}
-	draw_ray_mini(game, ray->wall_dist, ray->dirx, ray->diry);// minimap
+	draw_ray_mini(game, ray->wall_dist, ray->dirx, ray->diry);
 }

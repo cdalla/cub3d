@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/20 15:03:00 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/06 12:03:53 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/06 13:51:45 by lisa          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	map_valid(t_data *game)
 
 int	validate_data(t_data *game)
 {
-	if (/*texture_valid(game) ||*/ color_valid(game) || map_valid(game))
+	if (texture_valid(game) || color_valid(game) || map_valid(game))
 		return (1);
 	return (0);
 }

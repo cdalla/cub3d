@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/19 13:46:19 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/06 12:18:40 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/06 15:03:22 by lisa          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,17 @@
 # define EAST 1
 # define NORTH 2
 # define SOUTH 3
+# define texWidth 32
+# define texHeight 32
+
+typedef struct s_tex
+{
+	int		tex_x;
+	int		tex_y;
+	double	wall_x;
+	double	step;
+	double	tex_pos;
+}				t_tex;
 
 typedef struct s_map
 {
@@ -67,6 +78,7 @@ typedef struct s_player
 	int		size;
 }				t_player;
 
+
 typedef struct s_data
 {
 	char		*filename;
@@ -74,6 +86,10 @@ typedef struct s_data
 	char		*so;
 	char		*we;
 	char		*ea;
+	mlx_image_t	*no_img;
+	mlx_image_t	*so_img;
+	mlx_image_t	*we_img;
+	mlx_image_t	*ea_img;
 	int			f[3];
 	int			c[3];
 	int			ray;
@@ -125,6 +141,7 @@ void	dda(t_data *game, t_ray *ray, int *mapx, int *mapy);
 //RENDER DRAW
 void	draw_bg2d(t_data *game);
 void	draw_pl2d(t_data *game, mlx_image_t *img, int x, int y);
+void	draw_fl_ceil(t_data *game);
 void	render3d(t_data *game);
 void	render2d(t_data *game);
 

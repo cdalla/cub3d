@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/24 12:10:50 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/06 12:06:30 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/06 14:35:23 by lisa          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	calc_wall_dist(t_data *game, int x, t_ray *ray)
 	calc_init_side_distx(ray, mapx, game->pl.x);
 	calc_init_side_disty(ray, mapy, game->pl.y);
 	dda(game, ray, &mapx, &mapy);
-	if (ray->side == 0 || ray->side == 1)
+	if (ray->side == WEST || ray->side == EAST)
 		ray->wall_dist = (ray->side_distx - ray->delta_x);
 	else
 		ray->wall_dist = (ray->side_disty - ray->delta_y);

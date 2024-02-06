@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 11:09:11 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/06 12:09:45 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/06 14:38:47 by lisa          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	movement(t_data *game)
 	t_player	*pl;
 
 	pl = &game->pl;
-	mv_speed = game->mlx->delta_time * 2;
+	mv_speed = game->mlx->delta_time * 5;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 		pl_move(game, pl->pdirx, pl->pdiry, mv_speed);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_S))

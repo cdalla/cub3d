@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 11:05:29 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/06 12:15:34 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/06 15:03:28 by lisa          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 void	ft_hook(void *param);
 void	m_keyhook(mlx_key_data_t keydata, void* param);
 void	error(void);
+void	load_and_resize_all_textures(t_data *game);
 
 void	draw_ray3d(t_data *game, t_ray *ray, int x);
 void	draw_ray2d(t_data *game, double wallDist, double dirx, double diry);
@@ -75,7 +76,10 @@ void	render_scene(t_data *game)
 	if (game->map_show)
 		draw_bg2d(game);
 	else
+	{
+		draw_fl_ceil(game);
 		reset_bg_mini(game, game->mini);
+	}
 	while (x < WSIZE)
 	{
 		calc_wall_dist(game, x, &ray);
@@ -91,6 +95,7 @@ void	render(t_data *game)
 {
 	init_player(game);
 	init_mlx(game);
+	load_and_resize_all_textures(game);
 	mlx_key_hook(game->mlx, &m_keyhook, game);
 	mlx_loop_hook(game->mlx, ft_hook, game);
 	mlx_loop(game->mlx);

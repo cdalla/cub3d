@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 11:07:21 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/06 12:16:44 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/06 12:52:06 by lisa          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	draw_ray2d(t_data *game, double wallDist, double dirx, double diry)
 	}
 }
 
-
-
 void	draw_sq2d(t_data *game, int x, int y, uint32_t color)
 {
 	int	i;
@@ -46,7 +44,6 @@ void	draw_sq2d(t_data *game, int x, int y, uint32_t color)
 	}
 }
 
-//qui posso passare sq. sizemap sqsize mini
 void	draw_bg2d(t_data *game)
 {
 	int	i;
