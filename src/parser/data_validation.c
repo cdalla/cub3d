@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/20 15:03:00 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/24 13:50:25 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/02/06 12:03:53 by lisa          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,17 @@ int	map_valid(t_data *game)
 
 	i = 0;
 	player = 0;
-	while (game->map.map[i])
+	while (game->map.array[i])
 	{
 		j = 0;
-		while (game->map.map[i][j])
+		while (game->map.array[i][j])
 		{
-			if (ft_strchr_index("01NSEW", game->map.map[i][j]) == -1
-				&& !is_space(game->map.map[i][j]))
+			if (ft_strchr_index("01NSEW", game->map.array[i][j]) == -1
+				&& !is_space(game->map.array[i][j]))
 				return (print_err_msg("parser", "invalid symbol in map"), 1);
-			if (ft_strrchr("NSEW", game->map.map[i][j]) && !player)
+			if (ft_strrchr("NSEW", game->map.array[i][j]) && !player)
 				save_pl_data(game, &player, i, j);
-			else if (ft_strrchr("NSEW", game->map.map[i][j]) && player)
+			else if (ft_strrchr("NSEW", game->map.array[i][j]) && player)
 				return (print_err_msg("parser", "starting pos doubled"), 1);
 			j++;
 		}

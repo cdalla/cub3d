@@ -6,51 +6,11 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/15 11:35:03 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/13 12:14:57 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/02/06 12:03:10 by lisa          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-
-void	print_file(char **file);//to remove testing purpose
-
-/*
-typedef struct s_id
-{
-	char	*name;
-	int		(*fn)(t_data *, char **, int, int)
-}				t_id;
-
-	const t_id id[6] = {{"NO", &no_id}, {"SO", &so_id}, {"EA", &ea_id}, {"WE", &we_id},
-	{"F", &f_id}, {"C", &c_id}};
-*/
-// debug purpose - to be removed
-void	print_map(t_data *game)
-{
-	int	i;
-
-	i = 0;
-	while (game->map.map[i])
-	{
-		for (int j = 0; j < game->map.xsize; j++)
-			printf("%c", game->map.map[i][j]);
-		printf("\n");
-		i++;
-	}
-}
-
-//debug purpose - to be removed
-void	print_data(t_data *game)
-{
-	printf("North: %s\n", game->no);
-	printf("South: %s\n", game->so);
-	printf("West: %s\n", game->we);
-	printf("East: %s\n", game->ea);
-	printf("Floor: %d, %d, %d\n", game->f[0], game->f[1], game->f[2]);
-	printf("Ceiling: %d, %d, %d\n", game->c[0], game->c[1], game->c[2]);
-	printf("Map:\n\n");
-	print_map(game);
-}
 
 //return i = 0 for error
 int	check_id(char **file, int i, int j, t_data *game)
@@ -69,7 +29,6 @@ int	check_id(char **file, int i, int j, t_data *game)
 		return (ceili_id(file, i, j + 1, game));
 	else
 		return (map_save(file, i, game));
-	return (0);
 }
 
 int	fill_data(char **file, t_data *game)
@@ -102,7 +61,6 @@ int	parser(char *filename, t_data *game)
 		free_file_copy(file_copy);
 		return (1);
 	}
-	print_data(game); //test purpose
 	free_file_copy(file_copy);
 	return (0);
 }

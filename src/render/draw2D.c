@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 11:07:21 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/31 15:16:56 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/06 12:16:44 by lisa          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,12 @@ void	draw_ray2d(t_data *game, double wallDist, double dirx, double diry)
 	i = 0;
 	while (i < (wallDist * game->map.sq_map))
 	{
-		mlx_put_pixel(game->minimap, game->pl.x_map + dirx * i, game->pl.y_map + diry * i, 0xFF0000FF);
+		mlx_put_pixel(game->map2d, game->pl.x_map + dirx * i, game->pl.y_map + diry * i, 0xFF0000FF);
 		i++;
 	}
 }
 
-void	draw_pl2d(t_data *game)
-{
-	t_player	*pl;
-	int			i;
-	int			j;
 
-	i = 0;
-	pl = &game->pl;
-	while (i < pl->size)
-	{
-		j = 0;
-		while (j < pl->size)
-		{
-			mlx_put_pixel(game->minimap, pl->x_map - pl->size / 2 + i,
-				pl->y_map - pl->size / 2 + j, 0xFF0000FF);
-			j++;
-		}
-		i++;
-	}
-	i = 0;
-	while (i < 20)
-	{
-		mlx_put_pixel(game->minimap, pl->x_map + pl->pdirx * i,
-			pl->y_map + pl->pdiry * i, 0xFF0000FF);
-		i++;
-	}
-}
 
 void	draw_sq2d(t_data *game, int x, int y, uint32_t color)
 {
@@ -65,13 +39,14 @@ void	draw_sq2d(t_data *game, int x, int y, uint32_t color)
 		j = 0;
 		while (j < game->map.sq_map - 1)
 		{
-			mlx_put_pixel(game->minimap, x + i, y + j, color);
+			mlx_put_pixel(game->map2d, x + i, y + j, color);
 			j++;
 		}
 		i++;
 	}
 }
 
+//qui posso passare sq. sizemap sqsize mini
 void	draw_bg2d(t_data *game)
 {
 	int	i;
@@ -87,7 +62,7 @@ void	draw_bg2d(t_data *game)
 		j = 0;
 		while (j < game->map.xsize)
 		{
-			if (game->map.map[i][j] == '1' || game->map.map[i][j] == ' ')
+			if (game->map.array[i][j] == '1' || game->map.array[i][j] == ' ')
 				draw_sq2d(game, x, y, 0x000000FF);
 			else
 				draw_sq2d(game, x, y, 0xFFFFFFFF);
@@ -97,5 +72,6 @@ void	draw_bg2d(t_data *game)
 		y += game->map.sq_map;
 		i++;
 	}
+	draw_pl2d(game, game->map2d, game->pl.x_map - game->pl.size / 2, game->pl.y_map - game->pl.size / 2);
 }
 

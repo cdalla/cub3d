@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/13 12:12:31 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/31 15:54:24 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/06 11:58:03 by lisa          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include "../../mlx/include/MLX42/MLX42.h"
 #include <math.h>
 
-void	reset_bg(mlx_image_t *img, int size)
+//reset all pixel of an image
+void	reset_img(mlx_image_t *img, int size)
 {
 	int	i;
 	int	j;
@@ -32,37 +33,28 @@ void	reset_bg(mlx_image_t *img, int size)
 	}
 }
 
-void	reset_bg_mini(t_data *game, mlx_image_t *img, int size, uint32_t color)
+//conversion of degrees to radiant value
+float	deg_to_rad(double a)
 {
-	int	i;
-	int	j;
+	return (a * PI / 180);
+}
+
+void	draw_pl2d(t_data *game, mlx_image_t *img, int x, int y)
+{
+	t_player	*pl;
+	int			i;
+	int			j;
 
 	i = 0;
-	while (i < size)
+	pl = &game->pl;
+	while (i < pl->size)
 	{
 		j = 0;
-		while (j < size)
+		while (j < pl->size)
 		{
-			if (pow((i - (int)game->ray), 2) + pow((j - (int)game->ray), 2) <= pow((int)game->ray, 2))
-				mlx_put_pixel(img, i, j, color);
-			else	
-				mlx_put_pixel(img, i, j, 0x00000000);
+			mlx_put_pixel(img, x + i, y + j, 0xFF0000FF);
 			j++;
 		}
 		i++;
 	}
-}
-
-double	fix_angle(double a)
-{
-	if (a > 359)
-		a -= 360;
-	if (a < 0)
-		a += 360;
-	return (a);
-}
-
-float	degrees_to_radiant(double a)
-{
-	return (a * PI / 180);
 }

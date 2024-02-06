@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/22 11:56:33 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/13 12:15:21 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/02/06 12:02:10 by lisa          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ void	free_data(t_data *game)
 		free(game->we);
 	if (game->ea)
 		free(game->ea);
-	free_file_copy(game->map.map);
+	free_file_copy(game->map.array);
 }

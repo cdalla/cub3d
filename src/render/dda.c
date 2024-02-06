@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/24 12:10:50 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/31 12:56:27 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/06 12:06:30 by lisa          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,30 @@ void	dda(t_data *game, t_ray *ray, int *mapx, int *mapy)
 			else
 				ray->side = SOUTH;
 		}
-		if (game->map.map[*mapy][*mapx] == '1')
+		if (game->map.array[*mapy][*mapx] == '1')
 			return ;
 	}
+}
+
+//value of camerax between -1 (left side of screen) and 1 (right side),
+//0 is the player direction 
+void	calc_wall_dist(t_data *game, int x, t_ray *ray)
+{
+	double	camerax;
+	int		mapx;
+	int		mapy;
+
+	mapy = (int)game->pl.y;
+	mapx = (int)game->pl.x;
+	camerax = 2 * x / (double)(WSIZE) - 1;
+	ray->dirx = game->pl.pdirx + game->pl.planex * camerax;
+	ray->diry = game->pl.pdiry + game->pl.planey * camerax;
+	calc_delta_dist(ray);
+	calc_init_side_distx(ray, mapx, game->pl.x);
+	calc_init_side_disty(ray, mapy, game->pl.y);
+	dda(game, ray, &mapx, &mapy);
+	if (ray->side == 0 || ray->side == 1)
+		ray->wall_dist = (ray->side_distx - ray->delta_x);
+	else
+		ray->wall_dist = (ray->side_disty - ray->delta_y);
 }

@@ -31,13 +31,9 @@ SRC =	src/main.c\
 		src/parser/map_value.c\
 		src/GNL/get_next_line.c\
 		src/GNL/get_next_line_utils.c\
-		src/hooks/player_move.c\
-		src/hooks/player_rotate.c\
 		src/hooks/hook.c\
+		src/hooks/player_moves.c\
 		src/render/render.c\
-		src/render/render3D.c\
-		src/render/render2D.c\
-		src/render/render_minimap.c\
 		src/render/dda.c\
 		src/render/draw2D.c\
 		src/render/draw3D.c\
