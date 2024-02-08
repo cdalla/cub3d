@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/19 13:46:19 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/06 15:03:22 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/08 21:02:01 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define EAST 1
 # define NORTH 2
 # define SOUTH 3
-# define texWidth 32
-# define texHeight 32
+# define TEXWIDTH 32
+# define TEXHEIGHT 32
 
 typedef struct s_tex
 {
@@ -77,7 +77,6 @@ typedef struct s_player
 	double	planey;
 	int		size;
 }				t_player;
-
 
 typedef struct s_data
 {
@@ -144,5 +143,8 @@ void	draw_pl2d(t_data *game, mlx_image_t *img, int x, int y);
 void	draw_fl_ceil(t_data *game);
 void	render3d(t_data *game);
 void	render2d(t_data *game);
+void	draw_ray_mini(t_data *game, double wallDist, double dirx, double diry);
+void	calculate_texture_info(t_data *game, t_ray *ray, t_tex *tex, int start);
+void	draw_background(t_data *game, int line_start, int line_end, int x);
 
 #endif

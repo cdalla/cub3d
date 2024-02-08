@@ -5,13 +5,13 @@ C 225,30,0
 
 
 NO 
-./path_to_the_north_texture
+./textures/wall_white.png
 
-   SO ./path_to_the_south_texture
+   SO ./textures/wall_yellow.png
 
-WE ./path_to_the_west_texture
+WE ./textures/wall_purple.png
 
-EA ./path_to_the_east_texture
+EA ./textures/wall_green.png
 F 220,     100,056
 
 

@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/22 13:56:47 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/06 12:01:51 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/08 20:47:36 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char	**argv)
 	}
 	render(&game);
 	free_data(&game);
-	//system("leaks cub3d");
 	return (0);
 }
+
+//system("leaks cub3d"); place before return (0);

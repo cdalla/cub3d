@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   texture.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: kaltevog <kaltevog@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/08 20:43:26 by kaltevog      #+#    #+#                 */
+/*   Updated: 2024/02/08 20:45:42 by kaltevog      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube.h"
 #include "../../mlx/include/MLX42/MLX42.h"
 #include <math.h>
@@ -33,17 +45,18 @@ void	load_and_resize_all_textures(t_data *game)
 
 uint32_t	get_texture_color(int tex_x, int tex_y, mlx_image_t *texture)
 {
-	int pos;
+	int	pos;
 
 	if (!texture)
 		return (0xFFFFFFFF);
-	if (tex_x < 0 || tex_y < 0 || tex_x >= (int)texture->width || tex_y >= (int)texture->height)
+	if (tex_x < 0 || tex_y < 0 || tex_x >= \
+	(int)texture->width || tex_y >= (int)texture->height)
 		return (0xFFFFFFFF);
 	pos = (tex_y * texture->width + tex_x) * 4;
-	return (texture->pixels[pos] << 24) | 
-			(texture->pixels[pos + 1] << 16) | 
-			(texture->pixels[pos + 2] << 8) | 
-		(texture->pixels[pos + 3]);
+	return ((texture->pixels[pos] << 24) | \
+			(texture->pixels[pos + 1] << 16) | \
+			(texture->pixels[pos + 2] << 8) | \
+		(texture->pixels[pos + 3]));
 }
 
 uint32_t	get_color(int side, int tex_x, int tex_y, t_data *game)
@@ -60,7 +73,7 @@ uint32_t	get_color(int side, int tex_x, int tex_y, t_data *game)
 		return (0xFFFFFFFF);
 }
 
-void	calculate_texture_info(t_data *game, t_ray *ray, t_tex *tex, int line_start)
+void	calculate_texture_info(t_data *game, t_ray *ray, t_tex *tex, int start)
 {
 	int	h;
 	int	line_height;
@@ -68,17 +81,15 @@ void	calculate_texture_info(t_data *game, t_ray *ray, t_tex *tex, int line_start
 	h = WSIZE;
 	line_height = (int)(WSIZE / ray->wall_dist);
 	if (ray->side == WEST || ray->side == EAST)
-        tex->wall_x = game->pl.y + ray->wall_dist * ray->diry;
-    else 
-        tex->wall_x = game->pl.x + ray->wall_dist * ray->dirx;
-    tex->wall_x -= floor(tex->wall_x);
-
-    tex->tex_x = (int)(tex->wall_x * (double)texWidth);
-    if(ray->side == EAST)
-		tex->tex_x = texWidth - tex->tex_x - 1;
-    if(ray->side == NORTH)
-		tex->tex_x = texWidth - tex->tex_x - 1;
-
-    tex->step = 1.0 * texHeight / line_height;
-    tex->tex_pos = (line_start - h / 2 + line_height / 2) * tex->step;
+		tex->wall_x = game->pl.y + ray->wall_dist * ray->diry;
+	else
+		tex->wall_x = game->pl.x + ray->wall_dist * ray->dirx;
+	tex->wall_x -= floor(tex->wall_x);
+	tex->tex_x = (int)(tex->wall_x * (double)TEXWIDTH);
+	if (ray->side == EAST)
+		tex->tex_x = TEXWIDTH - tex->tex_x - 1;
+	if (ray->side == NORTH)
+		tex->tex_x = TEXWIDTH - tex->tex_x - 1;
+	tex->step = 1.0 * TEXHEIGHT / line_height;
+	tex->tex_pos = (start - h / 2 + line_height / 2) * tex->step;
 }

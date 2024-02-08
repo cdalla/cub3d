@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/25 13:31:38 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/06 12:06:14 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/08 20:25:21 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	move_valid(t_data *game, double dirx, double diry, double mv_speed)
 
 void	pl_move(t_data *game, double dirx, double diry, double mv_speed)
 {
-	t_player *pl;
+	t_player	*pl;
 
 	pl = &game->pl;
 	if (move_valid(game, dirx, diry, mv_speed))

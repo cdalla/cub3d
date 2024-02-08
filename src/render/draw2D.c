@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 11:07:21 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/06 12:52:06 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/08 20:31:53 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	draw_ray2d(t_data *game, double wallDist, double dirx, double diry)
 	i = 0;
 	while (i < (wallDist * game->map.sq_map))
 	{
-		mlx_put_pixel(game->map2d, game->pl.x_map + dirx * i, game->pl.y_map + diry * i, 0xFF0000FF);
+		mlx_put_pixel(game->map2d, game->pl.x_map + \
+			dirx * i, game->pl.y_map + diry * i, 0xFF0000FF);
 		i++;
 	}
 }
@@ -69,6 +70,6 @@ void	draw_bg2d(t_data *game)
 		y += game->map.sq_map;
 		i++;
 	}
-	draw_pl2d(game, game->map2d, game->pl.x_map - game->pl.size / 2, game->pl.y_map - game->pl.size / 2);
+	draw_pl2d(game, game->map2d, game->pl.x_map - \
+	game->pl.size / 2, game->pl.y_map - game->pl.size / 2);
 }
-

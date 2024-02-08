@@ -6,13 +6,12 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/15 11:35:03 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/06 12:03:10 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/08 20:28:06 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-//return i = 0 for error
 int	check_id(char **file, int i, int j, t_data *game)
 {
 	if (!ft_strncmp(&file[i][j], "NO", 2))
@@ -39,10 +38,10 @@ int	fill_data(char **file, t_data *game)
 	i = 0;
 	while (file[i])
 	{
-		while (!ft_strlen(file[i])) //skip empty lines
+		while (!ft_strlen(file[i]))
 			i++;
 		j = 0;
-		while (is_space(file[i][j])) //skip spaces
+		while (is_space(file[i][j]))
 			j++;
 		i = check_id(file, i, j, game);
 		if (!i)

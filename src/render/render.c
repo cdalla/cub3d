@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 11:05:29 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/06 15:03:28 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/08 21:07:07 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,12 @@
 #include <math.h>
 
 void	ft_hook(void *param);
-void	m_keyhook(mlx_key_data_t keydata, void* param);
+void	m_keyhook(mlx_key_data_t keydata, void *param);
 void	error(void);
 void	load_and_resize_all_textures(t_data *game);
-
 void	draw_ray3d(t_data *game, t_ray *ray, int x);
 void	draw_ray2d(t_data *game, double wallDist, double dirx, double diry);
 void	draw_bg_mini(t_data *game);
-
-
 
 void	init_mlx(t_data	*game)
 {
@@ -34,10 +31,11 @@ void	init_mlx(t_data	*game)
 	if (!game->img3d || (mlx_image_to_window(game->mlx, game->img3d, 0, 0) < 0))
 		error();
 	game->map2d = mlx_new_image(game->mlx, WSIZE, WSIZE);
-	if (!game->map2d|| mlx_image_to_window(game->mlx, game->map2d, 0, 0) < 0)
+	if (!game->map2d || mlx_image_to_window(game->mlx, game->map2d, 0, 0) < 0)
 		error();
 	game->mini = mlx_new_image(game->mlx, game->ray * 2, game->ray * 2);
-	if (!game->mini || (mlx_image_to_window(game->mlx, game->mini, WSIZE - (game->ray * 2), WSIZE - (game->ray * 2)) < 0)) //place it in bottom right corner
+	if (!game->mini || (mlx_image_to_window(game->mlx, game->mini, \
+		WSIZE - (game->ray * 2), WSIZE - (game->ray * 2)) < 0))
 		error();
 }
 
@@ -61,16 +59,16 @@ void	init_player(t_data *game)
 
 void	reset_all_img(t_data *game)
 {
-	reset_img(game->mini, game->ray * 2);//reset img 3d
-	reset_img(game->img3d, WSIZE);//reset img 3d
-	reset_img(game->map2d, WSIZE);//reset img map
+	reset_img(game->mini, game->ray * 2);
+	reset_img(game->img3d, WSIZE);
+	reset_img(game->map2d, WSIZE);
 }
 
 void	render_scene(t_data *game)
 {
 	t_ray	ray;
 	int		x;
-	
+
 	reset_all_img(game);
 	x = 0;
 	if (game->map_show)
@@ -84,9 +82,9 @@ void	render_scene(t_data *game)
 	{
 		calc_wall_dist(game, x, &ray);
 		if (game->map_show)
-			draw_ray2d(game, ray.wall_dist, ray.dirx, ray.diry);// map
+			draw_ray2d(game, ray.wall_dist, ray.dirx, ray.diry);
 		else
-			draw_ray3d(game, &ray, x); //scene 3d
+			draw_ray3d(game, &ray, x);
 		x++;
 	}
 }

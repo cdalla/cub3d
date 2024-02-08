@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/19 15:58:38 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/13 12:14:35 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/02/08 20:27:46 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int	color_value(char *s, int a[3])
 	while (*s)
 	{
 		len = 0;
-		while (*s && is_space(*s)) //skip initial spaces
+		while (*s && is_space(*s))
 			s++;
-		while (s[len] && ft_isdigit(s[len])) //count number of digits
+		while (s[len] && ft_isdigit(s[len]))
 			len++;
 		value = ft_substr(s, 0, len);
 		if (!value)
-			return (print_err_msg("parser", "malloc error"), 1); //malloc error
+			return (print_err_msg("parser", "malloc error"), 1);
 		a[i] = ft_atoi(value);
 		s = s + len;
 		while (*s && *s != ',')
@@ -65,11 +65,11 @@ int	floor_id(char **file, int i, int j, t_data *game)
 {
 	while (file[i])
 	{
-		if (ft_strlen(file[i])) //skip empty lines
+		if (ft_strlen(file[i]))
 		{
-			while (is_space(file[i][j])) //skip spaces
+			while (is_space(file[i][j]))
 				j++;
-			if (file[i][j]) //if something in string
+			if (file[i][j])
 			{
 				if (string_check(&file[i][j])
 					|| color_value(&file[i][j], game->f))
@@ -80,27 +80,27 @@ int	floor_id(char **file, int i, int j, t_data *game)
 		i++;
 		j = 0;
 	}
-	return (i); //if arrives here it is the last line so file[i] == 0
+	return (i);
 }
 
 int	ceili_id(char **file, int i, int j, t_data *game)
 {
 	while (file[i])
 	{
-		if (ft_strlen(file[i])) //skip empty lines
+		if (ft_strlen(file[i]))
 		{
-			while (is_space(file[i][j])) //skip spaces
+			while (is_space(file[i][j]))
 				j++;
-			if (file[i][j]) //if something in string
+			if (file[i][j])
 			{
 				if (string_check(&file[i][j])
 					|| color_value(&file[i][j], game->c))
-					return (0); //0 index is error
+					return (0);
 				return (++i);
 			}
 		}
 		i++;
 		j = 0;
 	}
-	return (i); //if arrives here it is the last line so file[i] == 0
+	return (i);
 }
