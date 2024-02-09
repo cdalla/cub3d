@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/19 13:46:19 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/08 21:02:01 by kaltevog      ########   odam.nl         */
+/*   Updated: 2024/02/09 18:27:32 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,5 @@ void	render3d(t_data *game);
 void	render2d(t_data *game);
 void	draw_ray_mini(t_data *game, double wallDist, double dirx, double diry);
 void	calculate_texture_info(t_data *game, t_ray *ray, t_tex *tex, int start);
-void	draw_background(t_data *game, int line_start, int line_end, int x);
 
 #endif

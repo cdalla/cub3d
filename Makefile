@@ -37,7 +37,6 @@ SRC =	src/main.c\
 		src/render/dda.c\
 		src/render/draw2D.c\
 		src/render/draw3D.c\
-		src/render/draw_background.c\
 		src/render/draw_minimap.c\
 		src/render/draw_utils.c\
 		src/render/texture.c

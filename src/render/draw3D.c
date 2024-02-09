@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/13 12:12:17 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/08 21:06:54 by kaltevog      ########   odam.nl         */
+/*   Updated: 2024/02/09 18:31:30 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,15 @@ uint32_t	get_color(int side, int tex_x, int tex_y, t_data *game);
 
 void	draw_fl_ceil(t_data *game)
 {
-	int	x;
-	int	y;
+	int			x;
+	int			y;
+	uint32_t	ceiling_color;
+	uint32_t	floor_color;
 
+	ceiling_color = (game->c[0] << 24) | \
+	(game->c[1] << 16) | (game->c[2] << 8) | 0xFF;
+	floor_color = (game->f[0] << 24) | \
+	(game->f[1] << 16) | (game->f[2] << 8) | 0xFF;
 	x = 0;
 	while (x < WSIZE)
 	{
@@ -28,9 +34,9 @@ void	draw_fl_ceil(t_data *game)
 		while (y < WSIZE)
 		{
 			if (y < WSIZE / 2)
-				mlx_put_pixel(game->img3d, x, y, 0x0000FFFF);
+				mlx_put_pixel(game->img3d, x, y, ceiling_color);
 			else
-				mlx_put_pixel(game->img3d, x, y, 0x00FFFFFF);
+				mlx_put_pixel(game->img3d, x, y, floor_color);
 			y++;
 		}
 		x++;
@@ -64,7 +70,6 @@ void	draw_ray3d(t_data *game, t_ray *ray, int x)
 	calculate_height(ray, &line_start, &line_end);
 	calculate_texture_info(game, ray, &tex, line_start);
 	y = line_start;
-	draw_background(game, line_start, line_end, x);
 	while (y < line_end)
 	{
 		tex.tex_pos += tex.step;
