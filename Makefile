@@ -8,12 +8,13 @@ MLXDIR := mlx
 
 MLX := $(MLXDIR)/build/libmlx42.a
 
-MLXFLAGS :=  -L /opt/homebrew/Cellar/glfw/3.3.9/lib -ldl -lglfw -pthread -lm
+MLXFLAGS := -L$(MLXDIR)/build -lmlx42 -ldl -lglfw -pthread -lm
+# MLXFLAGS := -lmlx42 -ldl -lglfw -pthread -lm
 
 HEADER := src/libft/libft.h\
 		  src/include/cube.h\
 
-INC := -I /opt/homebrew/Cellar/glfw/3.3.9/include -I src/include -I src/libft -I $(MLXDIR)/include
+INC := -I src/include -I src/libft -I $(MLXDIR)/include
 
 LIBFT := src/libft/libft.a
 
@@ -46,8 +47,11 @@ OBJ =	$(SRC:src/%.c=obj/%.o)
 		
 all: $(NAME)
 	
+# $(NAME): $(OBJ) $(LIBFT) $(MLX)
+# 	@$(CC) $(FLAGS) $(MLXFLAGS) $^ -o $@ 
+
 $(NAME): $(OBJ) $(LIBFT) $(MLX)
-	@$(CC) $(FLAGS) $(MLXFLAGS) $^ -o $@ 
+	$(CC) $(OBJ) $(LIBFT) $(FLAGS) $(MLXFLAGS) -o $@
 
 obj/%.o: src/%.c $(HEADER)
 	@mkdir -p $(dir $@)
