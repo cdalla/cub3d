@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/20 15:03:00 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/12 11:35:18 by kaltevog      ########   odam.nl         */
+/*   Updated: 2024/02/12 12:31:36 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	map_valid(t_data *game)
 		}
 		i++;
 	}
+	if (game->pl.x == -1 && game->pl.y == -1)
+		return (print_err_msg("parser", "starting pos missing"), 1);
 	return (0);
 }
 

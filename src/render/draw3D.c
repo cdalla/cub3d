@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/13 12:12:17 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/09 18:31:30 by kaltevog      ########   odam.nl         */
+/*   Updated: 2024/02/12 12:43:03 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ void	calculate_height(t_ray *ray, int *line_start, int *line_end)
 		*line_end = h - 1;
 }
 
-//calculate lowest and highest pixel to fill in current vertical line
-//draw the line with color based on cardinals direction
 void	draw_ray3d(t_data *game, t_ray *ray, int x)
 {
 	t_tex	tex;
