@@ -6,7 +6,7 @@
 /*   By: kaltevog <kaltevog@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/31 15:15:20 by kaltevog      #+#    #+#                 */
-/*   Updated: 2024/02/08 20:45:15 by kaltevog      ########   odam.nl         */
+/*   Updated: 2024/02/12 10:39:43 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,4 @@ void	reset_bg_mini(t_data *game, mlx_image_t *img)
 		i++;
 	}
 	draw_bg_mini(game);
-	draw_pl2d(game, game->mini, game->ray - \
-		game->pl.size / 2, game->ray - game->pl.size / 2);
 }
-
-/* 
-
-draw back ground minimap
-
-first reset the entire img, if in circle put black
-then put the grid
-
-*/
