@@ -11,11 +11,11 @@ NO
 
 WE ./textures/wall_white.png
 
-EA ./textures/pix.png
+EA ./textures/wall_purple.png
 F 220,     100,056
 
 
 
  111              
 100S1
- 111 0
+ 111

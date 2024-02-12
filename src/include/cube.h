@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/19 13:46:19 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/12 11:44:40 by kaltevog      ########   odam.nl         */
+/*   Updated: 2024/02/12 13:32:55 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <string.h>
 # include <errno.h>
 
+//change WSIZE to make the windowsize bigger(slower) or smaller(quicker).
 # define PI 3.14159
 # define WSIZE 600
 # define WEST 0

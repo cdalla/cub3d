@@ -9,7 +9,6 @@ MLXDIR := mlx
 MLX := $(MLXDIR)/build/libmlx42.a
 
 MLXFLAGS := -L$(MLXDIR)/build -lmlx42 -ldl -lglfw -pthread -lm
-# MLXFLAGS := -lmlx42 -ldl -lglfw -pthread -lm
 
 HEADER := src/libft/libft.h\
 		  src/include/cube.h\
@@ -46,12 +45,9 @@ OBJ =	$(SRC:src/%.c=obj/%.o)
 
 		
 all: $(NAME)
-	
-# $(NAME): $(OBJ) $(LIBFT) $(MLX)
-# 	@$(CC) $(FLAGS) $(MLXFLAGS) $^ -o $@ 
 
 $(NAME): $(OBJ) $(LIBFT) $(MLX)
-	$(CC) $(OBJ) $(LIBFT) $(FLAGS) $(MLXFLAGS) -o $@
+	@$(CC) $^ $(FLAGS) $(MLXFLAGS) -o $@ 
 
 obj/%.o: src/%.c $(HEADER)
 	@mkdir -p $(dir $@)

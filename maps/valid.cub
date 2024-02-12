@@ -11,10 +11,8 @@ NO
 
 WE ./textures/wall_white.png
 
-EA ./textures/pix.png
+EA ./textures/wall_purple.png
 F 220,     100,056
-
-
 
         1111111111111111111111111
         1000000000110000000000001
