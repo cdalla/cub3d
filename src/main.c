@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/22 13:56:47 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/08 20:47:36 by kaltevog      ########   odam.nl         */
+/*   Updated: 2024/02/12 11:32:27 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void	init_data(t_data *game)
 	game->we = 0;
 	game->so = 0;
 	game->ea = 0;
+	game->c[0] = -1;
+	game->c[1] = -1;
+	game->c[2] = -1;
+	game->f[0] = -1;
+	game->f[1] = -1;
+	game->f[2] = -1;
 	game->map.array = 0;
 }
 
@@ -37,7 +43,6 @@ int	main(int argc, char	**argv)
 	}
 	render(&game);
 	free_data(&game);
+	system("leaks cub3d");
 	return (0);
 }
-
-//system("leaks cub3d"); place before return (0);

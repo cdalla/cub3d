@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/20 15:03:00 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/06 13:51:45 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/12 11:35:18 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ int	texture_valid(t_data *game)
 
 int	color_valid(t_data *game)
 {
+	if (game->f[0] == -1 && game->f[1] == -1 && game->f[2] == -1)
+		return (print_err_msg("parser", "floor color not found"), 1);
+	if (game->c[0] == -1 && game->c[1] == -1 && game->c[2] == -1)
+		return (print_err_msg("parser", "ceiling color not found"), 1);
 	if (game->f[0] > 255 || game->f[0] < 0
 		|| game->f[1] > 255 || game->f[1] < 0
 		|| game->f[2] > 255 || game->f[2] < 0)

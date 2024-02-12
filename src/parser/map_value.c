@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/20 12:37:23 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/06 12:06:00 by lisa          ########   odam.nl         */
+/*   Updated: 2024/02/12 11:26:38 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	copy_map(char **file, t_data *game, int len)
 int	map_save(char **file, int i, t_data *game)
 {
 	map_size(&file[i], &game->map.xsize, &game->map.ysize);
-	game->map.array = (char **)malloc((game->map.xsize + 1) * sizeof(char *));
+	game->map.array = (char **)malloc((game->map.ysize + 1) * sizeof(char *));
 	if (!game->map.array)
 		return (print_err_msg("parser", "malloc error"), 0);
 	i = i + copy_map(&file[i], game, game->map.xsize);
