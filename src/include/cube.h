@@ -6,7 +6,7 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/19 13:46:19 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/02/09 18:27:32 by kaltevog      ########   odam.nl         */
+/*   Updated: 2024/02/12 11:44:40 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <errno.h>
 
 # define PI 3.14159
-# define FOV 60
 # define WSIZE 600
 # define WEST 0
 # define EAST 1
@@ -65,14 +64,14 @@ typedef struct s_ray
 
 typedef struct s_player
 {
-	double	x;	//player X
-	double	y;	//player Y
+	double	x;
+	double	y;
 	double	x_map;
 	double	y_map;
 	double	x_mini;
 	double	y_mini;
-	double	pdirx; //player direction X
-	double	pdiry; //player direction Y
+	double	pdirx;
+	double	pdiry;
 	double	planex;
 	double	planey;
 	int		size;

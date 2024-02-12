@@ -6,24 +6,11 @@
 /*   By: cdalla-s <cdalla-s@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/19 13:45:00 by cdalla-s      #+#    #+#                 */
-/*   Updated: 2024/01/13 12:14:39 by cdalla-s      ########   odam.nl         */
+/*   Updated: 2024/02/12 11:43:33 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-
-//to remove testing purpose
-void	print_file(char **file)
-{
-	int	i;
-
-	i = 0;
-	while (file[i])
-	{
-		printf("%s\n", file[i]);
-		i++;
-	}
-}
 
 int	file_size(char *filename)
 {
